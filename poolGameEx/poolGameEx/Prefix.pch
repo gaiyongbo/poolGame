@@ -12,3 +12,13 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #endif
+
+#define PTM_RATIO 32
+#define FRAME_SIZE 200
+#define FRAME_X_POS 100
+
+enum PLnodeTags{
+	kTagParentNode = 0,
+    kBackgroundTag,
+    kStartBallTag
+};

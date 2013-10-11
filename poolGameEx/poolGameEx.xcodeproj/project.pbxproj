@@ -191,6 +191,7 @@
 		9201AFDA1805434200E9D540 /* CCLayerPanZoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 9201AFA41805434200E9D540 /* CCLayerPanZoom.m */; };
 		9201AFDB1805434200E9D540 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9201AFA51805434200E9D540 /* README.md */; };
 		9201AFF518054B3400E9D540 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 9201AFF418054B3400E9D540 /* background.png */; };
+		92D87FEC1807D4FC00CA1811 /* PLCustomPanZoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -576,6 +577,8 @@
 		9201AFA41805434200E9D540 /* CCLayerPanZoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLayerPanZoom.m; sourceTree = "<group>"; };
 		9201AFA51805434200E9D540 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		9201AFF418054B3400E9D540 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCustomPanZoom.h; sourceTree = "<group>"; };
+		92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLCustomPanZoom.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -637,6 +640,8 @@
 		9201AD3218053FF500E9D540 /* poolGameEx */ = {
 			isa = PBXGroup;
 			children = (
+				92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */,
+				92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */,
 				9201AF5618053FF800E9D540 /* AppDelegate.h */,
 				9201AF5718053FF800E9D540 /* AppDelegate.mm */,
 				9201AF5918053FF800E9D540 /* HelloWorldLayer.h */,
@@ -1390,6 +1395,7 @@
 				9201AD7618053FF500E9D540 /* CCAnimation.m in Sources */,
 				9201AEA118053FF700E9D540 /* aabb.c in Sources */,
 				9201AE1818053FF600E9D540 /* CCTMXObjectGroup.m in Sources */,
+				92D87FEC1807D4FC00CA1811 /* PLCustomPanZoom.m in Sources */,
 				9201AF2318053FF800E9D540 /* b2EdgeAndPolygonContact.cpp in Sources */,
 				9201AF2618053FF800E9D540 /* b2PolygonAndCircleContact.cpp in Sources */,
 				9201AF0A18053FF800E9D540 /* b2World.cpp in Sources */,
@@ -1563,6 +1569,7 @@
 				9201AF6818053FF800E9D540 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

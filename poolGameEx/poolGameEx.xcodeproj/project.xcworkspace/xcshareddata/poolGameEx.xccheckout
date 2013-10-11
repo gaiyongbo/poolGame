@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>916192D9-BAA3-4D61-AA39-C016434E6392</string>
+	<key>IDESourceControlProjectName</key>
+	<string>poolGameEx</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E66F6729-06B0-4CFC-8C7A-DFB387A4545B</key>
+		<string>https://github.com/gaiyongbo/poolGame.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>poolGameEx/poolGameEx.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E66F6729-06B0-4CFC-8C7A-DFB387A4545B</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/gaiyongbo/poolGame.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E66F6729-06B0-4CFC-8C7A-DFB387A4545B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E66F6729-06B0-4CFC-8C7A-DFB387A4545B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Pool</string>
+		</dict>
+	</array>
+</dict>
+</plist>
