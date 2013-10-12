@@ -20,5 +20,5 @@
 enum PLnodeTags{
 	kTagParentNode = 0,
     kBackgroundTag,
-    kStartBallTag
+    kStartBallTag = 100
 };

@@ -89,11 +89,13 @@
 		
 #if 1
 		// Use batch node. Faster
-		CCSpriteBatchNode *parent = [CCSpriteBatchNode batchNodeWithFile:@"blocks.png" capacity:100];
+		CCSpriteBatchNode *parent = [CCSpriteBatchNode batchNodeWithFile:@"球3.png" capacity:100];
 		spriteTexture_ = [parent texture];
+        
+        [spriteTexture_ setAntiAliasTexParameters];
 #else
 		// doesn't use batch node. Slower
-		spriteTexture_ = [[CCTextureCache sharedTextureCache] addImage:@"blocks.png"];
+		spriteTexture_ = [[CCTextureCache sharedTextureCache] addImage:@"球3.png"];
 		CCNode *parent = [CCNode node];
 #endif
 		[_panZoomLayer addChild:parent z:0 tag:kTagParentNode];
@@ -123,7 +125,7 @@
     }
     
     //画开始的球
-     [self addNewSpriteAtPosition:ccp(s.width*SIZE_RATIO - 150, s.height*SIZE_RATIO*0.5) withTag:kStartBallTag];
+     [self addNewSpriteAtPosition:ccp(s.width*SIZE_RATIO - 150, s.height*SIZE_RATIO*0.5 + 24) withTag:kStartBallTag];
     
 }
 
@@ -202,7 +204,8 @@
 	
 	// Do we want to let bodies sleep?
 	world->SetAllowSleeping(true);
-	
+    _contactListener = new PLContactListener();
+	world->SetContactListener(_contactListener);
 	world->SetContinuousPhysics(true);
 	
 	m_debugDraw = new GLESDebugDraw( PTM_RATIO );
@@ -279,33 +282,34 @@
 	b2Body *body = world->CreateBody(&bodyDef);
 	
 	// Define another box shape for our dynamic body.
-	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(.5f, .5f);//These are mid points for our 1m box
-	
+    b2CircleShape  dynamicCircle;
+    dynamicCircle.m_radius = 12.0/PTM_RATIO;
+  
+    //b2PolygonShape dynamicCircle;
+    //dynamicCircle.SetAsBox(0.5, 0.5);
 	// Define the dynamic body fixture.
 	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &dynamicBox;	
+	fixtureDef.shape = &dynamicCircle;
 	
 	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.0f;
-    fixtureDef.restitution = 0.8f;
+	fixtureDef.friction = 0.5f;
+    fixtureDef.restitution = 1.0f;
 
 	body->CreateFixture(&fixtureDef);
-	
-    b2Vec2 force = b2Vec2(10,10);
-    
-    if (kStartBallTag == tag) {
-        body->ApplyLinearImpulse(force,bodyDef.position);
-    }
-   
 
+    
+   //if (kStartBallTag == tag) {
+        
+        b2Vec2 force = b2Vec2(-10,0);
+        body->ApplyLinearImpulse(force,bodyDef.position);
+    //}
+   
 	CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
 	
 	//We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is
 	//just randomly picking one of the images
-	int idx = (CCRANDOM_0_1() > .5 ? 0:1);
-	int idy = (CCRANDOM_0_1() > .5 ? 0:1);
-	CCPhysicsSprite *sprite = [CCPhysicsSprite spriteWithTexture:spriteTexture_ rect:CGRectMake(32 * idx,32 * idy,32,32)];
+
+	CCPhysicsSprite *sprite =[CCPhysicsSprite spriteWithTexture:spriteTexture_];
     sprite.tag = tag;
 	[parent addChild:sprite];
 	

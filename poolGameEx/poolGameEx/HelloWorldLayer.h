@@ -14,6 +14,7 @@
 #import "Box2D.h"
 #import "GLES-Render.h"
 #import "PLCustomPanZoom.h"
+#import "PLContactListener.h"
 //Pixel to metres ratio. Box2D uses metres as the unit for measurement.
 //This ratio defines how many pixels correspond to 1 Box2D "metre"
 //Box2D is optimized for objects of 1x1 metre therefore it makes sense
@@ -27,7 +28,7 @@
 	b2World* world;					// strong ref
 	GLESDebugDraw *m_debugDraw;		// strong ref
     PLCustomPanZoom *_panZoomLayer;
-    
+    PLContactListener *_contactListener;
    
 }
 @property (nonatomic,assign) NSMutableArray  *ballList;
