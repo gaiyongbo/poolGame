@@ -192,11 +192,11 @@
 		9201AFDB1805434200E9D540 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9201AFA51805434200E9D540 /* README.md */; };
 		9201AFF518054B3400E9D540 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 9201AFF418054B3400E9D540 /* background.png */; };
 		92D87FEC1807D4FC00CA1811 /* PLCustomPanZoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */; };
-		92D87FF21807ED7A00CA1811 /* PLContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92D87FF01807ED7A00CA1811 /* PLContactListener.cpp */; };
 		92D87FF71807EFF800CA1811 /* 球.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF31807EFF800CA1811 /* 球.png */; };
 		92D87FF81807EFF800CA1811 /* 球2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF41807EFF800CA1811 /* 球2.png */; };
 		92D87FF91807EFF800CA1811 /* 球3.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF51807EFF800CA1811 /* 球3.png */; };
 		92D87FFA1807EFF800CA1811 /* 球4.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF61807EFF800CA1811 /* 球4.png */; };
+		92FF8F0C1809250800B0CD2A /* PLContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92FF8F0B1809250800B0CD2A /* PLContactListener.mm */; };
 		FB89B2781808DE580040D4FA /* ENDragableSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2751808DE580040D4FA /* ENDragableSprite.m */; };
 		FB89B2791808DE580040D4FA /* ENTouchableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2771808DE580040D4FA /* ENTouchableNode.m */; };
 		FB89B27D1808E0960040D4FA /* ball.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB89B27B1808E0960040D4FA /* ball.plist */; };
@@ -590,12 +590,12 @@
 		9201AFF418054B3400E9D540 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCustomPanZoom.h; sourceTree = "<group>"; };
 		92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLCustomPanZoom.m; sourceTree = "<group>"; };
-		92D87FF01807ED7A00CA1811 /* PLContactListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PLContactListener.cpp; sourceTree = "<group>"; };
 		92D87FF11807ED7A00CA1811 /* PLContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLContactListener.h; sourceTree = "<group>"; };
 		92D87FF31807EFF800CA1811 /* 球.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球.png"; path = "Resources/球.png"; sourceTree = "<group>"; };
 		92D87FF41807EFF800CA1811 /* 球2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球2.png"; path = "Resources/球2.png"; sourceTree = "<group>"; };
 		92D87FF51807EFF800CA1811 /* 球3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球3.png"; path = "Resources/球3.png"; sourceTree = "<group>"; };
 		92D87FF61807EFF800CA1811 /* 球4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球4.png"; path = "Resources/球4.png"; sourceTree = "<group>"; };
+		92FF8F0B1809250800B0CD2A /* PLContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLContactListener.mm; sourceTree = "<group>"; };
 		FB89B2741808DE580040D4FA /* ENDragableSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENDragableSprite.h; sourceTree = "<group>"; };
 		FB89B2751808DE580040D4FA /* ENDragableSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENDragableSprite.m; sourceTree = "<group>"; };
 		FB89B2761808DE580040D4FA /* ENTouchableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTouchableNode.h; sourceTree = "<group>"; };
@@ -668,6 +668,8 @@
 		9201AD3218053FF500E9D540 /* poolGameEx */ = {
 			isa = PBXGroup;
 			children = (
+				92D87FF11807ED7A00CA1811 /* PLContactListener.h */,
+				92FF8F0B1809250800B0CD2A /* PLContactListener.mm */,
 				9201AF5618053FF800E9D540 /* AppDelegate.h */,
 				9201AF5718053FF800E9D540 /* AppDelegate.mm */,
 				9201AF5F18053FF800E9D540 /* GLES-Render.h */,
@@ -681,8 +683,6 @@
 				FB89B280180911D80040D4FA /* PLBallSprite.mm */,
 				FB89B282180912C50040D4FA /* PLPlayer.h */,
 				FB89B283180912C50040D4FA /* PLPlayer.m */,
-				92D87FF01807ED7A00CA1811 /* PLContactListener.cpp */,
-				92D87FF11807ED7A00CA1811 /* PLContactListener.h */,
 				92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */,
 				92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */,
 				9201AD3318053FF500E9D540 /* Resources */,
@@ -1372,6 +1372,7 @@
 				9201AD9818053FF600E9D540 /* ccFPSImages.m in Sources */,
 				9201AF1418053FF800E9D540 /* b2ChainAndPolygonContact.cpp in Sources */,
 				9201AE1E18053FF600E9D540 /* CCTMXXMLParser.m in Sources */,
+				92FF8F0C1809250800B0CD2A /* PLContactListener.mm in Sources */,
 				9201AF1118053FF800E9D540 /* b2ChainAndCircleContact.cpp in Sources */,
 				9201AF1718053FF800E9D540 /* b2CircleContact.cpp in Sources */,
 				9201AEB518053FF700E9D540 /* ray2.c in Sources */,
@@ -1486,7 +1487,6 @@
 				9201AEB918053FF700E9D540 /* vec2.c in Sources */,
 				9201AEF918053FF800E9D540 /* b2Timer.cpp in Sources */,
 				9201AEA918053FF700E9D540 /* matrix.c in Sources */,
-				92D87FF21807ED7A00CA1811 /* PLContactListener.cpp in Sources */,
 				9201AF1A18053FF800E9D540 /* b2Contact.cpp in Sources */,
 				9201AD8F18053FF500E9D540 /* CCDrawingPrimitives.m in Sources */,
 				9201ADF718053FF600E9D540 /* ccShaders.m in Sources */,

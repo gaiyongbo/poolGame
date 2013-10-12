@@ -19,6 +19,7 @@ void PLContactListener::BeginContact(b2Contact* contact)
     if (spriteA.tag == kStartBallTag || spriteB.tag == kStartBallTag) {
         //得分
         NSLog(@"get 1 point");
+
     }
 }
 

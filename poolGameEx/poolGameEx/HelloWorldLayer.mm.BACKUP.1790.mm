@@ -363,19 +363,24 @@
 	
 	[sprite setPTMRatio:PTM_RATIO];
 	[sprite setB2Body:body];
+    body->SetUserData(sprite);
 	[sprite setPosition: ccp( p.x, p.y)];
     
     return sprite;
 }
 
--(void)addNewSpriteAtPosition:(CGPoint)p withForce:(b2Vec2)force
+-(void)addNewSpriteAtPosition:(CGPoint)p withForce:(b2Vec2)force withTag: (int)tag
 {
     CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
+<<<<<<< HEAD
+    [parent addChild:sprite z:1 tag:tag];
+=======
     
     b2Body *body = [self CreateBodyAtPosition:p];
     NSInteger index = arc4random()%4;
     PLBallSprite *sprite = [PLBallSprite BallSpriteWithPlayer:[self.playerArray objectAtIndex:index] withBody:body];
     [parent addChild:sprite];
+>>>>>>> 8322b49a47f0ef72fd477c21f39947d834c519f7
     
     body->ApplyLinearImpulse(force,body->GetPosition());
 }
@@ -383,11 +388,15 @@
 -(void) addNewSpriteAtPosition:(CGPoint)p
 {
     CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
+<<<<<<< HEAD
+    [parent addChild:sprite z:1 tag:tag];
+=======
 
     b2Body *body = [self CreateBodyAtPosition:p];
     NSInteger index = arc4random()%4;
     PLBallSprite *sprite = [PLBallSprite BallSpriteWithPlayer:[self.playerArray objectAtIndex:index] withBody:body];
     [parent addChild:sprite];
+>>>>>>> 8322b49a47f0ef72fd477c21f39947d834c519f7
 }
 
 -(void) update: (ccTime) dt
@@ -414,14 +423,7 @@
             if (sprite && [sprite isKindOfClass:[PLBallSprite class]]) {
                 if (!CGRectIntersectsRect(playerGround.boundingBox, sprite.boundingBox)) {
                     CCSequence *seq = [CCSequence actionOne:[CCScaleTo actionWithDuration:0.3 scale:0.1] two:[CCCallBlockN actionWithBlock:^(CCNode *node) {
-                        
-                        PLBallSprite *phNode = (PLBallSprite*)node;
-                        
-                        world->DestroyBody(phNode.b2Body);
                         [node removeFromParentAndCleanup:YES];
-                        
-                        
-                        
                     }]];
                     [sprite runAction:seq];
                 }
@@ -451,7 +453,7 @@
 		
         CGFloat xForce = -(arc4random()%50 * 0.1 + 5);
         CGFloat yForce = 5 - (arc4random()%100 * 0.1);
-		[self addNewSpriteAtPosition:location withForce:b2Vec2(xForce,yForce)];
+		[self addNewSpriteAtPosition:location withForce:b2Vec2(xForce,yForce) withTag:kStartBallTag];
 	}
 }
 

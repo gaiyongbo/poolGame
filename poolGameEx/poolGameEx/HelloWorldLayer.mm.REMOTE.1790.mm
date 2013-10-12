@@ -414,14 +414,7 @@
             if (sprite && [sprite isKindOfClass:[PLBallSprite class]]) {
                 if (!CGRectIntersectsRect(playerGround.boundingBox, sprite.boundingBox)) {
                     CCSequence *seq = [CCSequence actionOne:[CCScaleTo actionWithDuration:0.3 scale:0.1] two:[CCCallBlockN actionWithBlock:^(CCNode *node) {
-                        
-                        PLBallSprite *phNode = (PLBallSprite*)node;
-                        
-                        world->DestroyBody(phNode.b2Body);
                         [node removeFromParentAndCleanup:YES];
-                        
-                        
-                        
                     }]];
                     [sprite runAction:seq];
                 }
