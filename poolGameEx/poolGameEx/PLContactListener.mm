@@ -8,6 +8,7 @@
 
 #include "PLContactListener.h"
 #include "cocos2d.h"
+#include "PLGameDataManager.h"
 void PLContactListener::BeginContact(b2Contact* contact)
 {
     b2Body* bodyA = contact->GetFixtureA()->GetBody();

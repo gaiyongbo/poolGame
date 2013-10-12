@@ -197,6 +197,7 @@
 		92D87FF81807EFF800CA1811 /* 球2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF41807EFF800CA1811 /* 球2.png */; };
 		92D87FF91807EFF800CA1811 /* 球3.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF51807EFF800CA1811 /* 球3.png */; };
 		92D87FFA1807EFF800CA1811 /* 球4.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF61807EFF800CA1811 /* 球4.png */; };
+		92D87FFD1809160F00CA1811 /* PLGameDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D87FFC1809160F00CA1811 /* PLGameDataManager.m */; };
 		FB89B2781808DE580040D4FA /* ENDragableSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2751808DE580040D4FA /* ENDragableSprite.m */; };
 		FB89B2791808DE580040D4FA /* ENTouchableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2771808DE580040D4FA /* ENTouchableNode.m */; };
 		FB89B27D1808E0960040D4FA /* ball.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB89B27B1808E0960040D4FA /* ball.plist */; };
@@ -594,6 +595,8 @@
 		92D87FF41807EFF800CA1811 /* 球2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球2.png"; path = "Resources/球2.png"; sourceTree = "<group>"; };
 		92D87FF51807EFF800CA1811 /* 球3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球3.png"; path = "Resources/球3.png"; sourceTree = "<group>"; };
 		92D87FF61807EFF800CA1811 /* 球4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球4.png"; path = "Resources/球4.png"; sourceTree = "<group>"; };
+		92D87FFB1809160F00CA1811 /* PLGameDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLGameDataManager.h; sourceTree = "<group>"; };
+		92D87FFC1809160F00CA1811 /* PLGameDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLGameDataManager.m; sourceTree = "<group>"; };
 		FB89B2741808DE580040D4FA /* ENDragableSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENDragableSprite.h; sourceTree = "<group>"; };
 		FB89B2751808DE580040D4FA /* ENDragableSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENDragableSprite.m; sourceTree = "<group>"; };
 		FB89B2761808DE580040D4FA /* ENTouchableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTouchableNode.h; sourceTree = "<group>"; };
@@ -662,6 +665,8 @@
 		9201AD3218053FF500E9D540 /* poolGameEx */ = {
 			isa = PBXGroup;
 			children = (
+				92D87FFB1809160F00CA1811 /* PLGameDataManager.h */,
+				92D87FFC1809160F00CA1811 /* PLGameDataManager.m */,
 				92D87FF11807ED7A00CA1811 /* PLContactListener.h */,
 				92D87FF01807ED7A00CA1811 /* PLContactListener.mm */,
 				92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */,
@@ -1406,6 +1411,7 @@
 				9201ADF418053FF600E9D540 /* CCShaderCache.m in Sources */,
 				9201ADFA18053FF600E9D540 /* CCSprite.m in Sources */,
 				9201AF2018053FF800E9D540 /* b2EdgeAndCircleContact.cpp in Sources */,
+				92D87FFD1809160F00CA1811 /* PLGameDataManager.m in Sources */,
 				9201ADA118053FF600E9D540 /* CCGrabber.m in Sources */,
 				9201AEAB18053FF700E9D540 /* mat3.c in Sources */,
 				9201AFDA1805434200E9D540 /* CCLayerPanZoom.m in Sources */,

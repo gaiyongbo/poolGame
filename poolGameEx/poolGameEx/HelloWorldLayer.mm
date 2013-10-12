@@ -331,11 +331,11 @@
     return sprite;
 }
 
--(void)addNewSpriteAtPosition:(CGPoint)p withForce:(b2Vec2)force
+-(void)addNewSpriteAtPosition:(CGPoint)p withForce:(b2Vec2)force withTag: (int)tag
 {
     CCPhysicsSprite *sprite = [self createSpriteAtPosition:p];
     CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
-    [parent addChild:sprite];
+    [parent addChild:sprite z:1 tag:tag];
     
     b2Body *body = [sprite b2Body];
     body->ApplyLinearImpulse(force,body->GetPosition());
@@ -346,7 +346,7 @@
     CCPhysicsSprite *sprite = [self createSpriteAtPosition:p];
     
     CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
-    [parent addChild:sprite];
+    [parent addChild:sprite z:1 tag:tag];
 }
 
 -(void) update: (ccTime) dt
@@ -375,7 +375,7 @@
 		
         CGFloat xForce = -(arc4random()%50 * 0.1 + 5);
         CGFloat yForce = 5 - (arc4random()%100 * 0.1);
-		[self addNewSpriteAtPosition:location withForce:b2Vec2(xForce,yForce)];
+		[self addNewSpriteAtPosition:location withForce:b2Vec2(xForce,yForce) withTag:kStartBallTag];
 	}
 }
 
