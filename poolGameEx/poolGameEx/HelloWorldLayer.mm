@@ -400,6 +400,8 @@
 	int32 velocityIterations = 8;
 	int32 positionIterations = 1;
     
+    NSMutableArray *needRemoveBalls = [NSMutableArray array];
+
     BOOL haveAwakeBody = NO;
     for(b2Body* b = world->GetBodyList(); b && b->GetType() == b2_dynamicBody; b = b->GetNext())
     {
@@ -408,22 +410,13 @@
             b->SetAwake(NO);
         }
         
+        
         if (!b->IsAwake() && b->GetUserData())
         {
             PLBallSprite *sprite = (PLBallSprite*)b->GetUserData();
             if (sprite && [sprite isKindOfClass:[PLBallSprite class]]) {
                 if (!CGRectIntersectsRect(playerGround.boundingBox, sprite.boundingBox)) {
-                    CCSequence *seq = [CCSequence actionOne:[CCScaleTo actionWithDuration:0.3 scale:0.1] two:[CCCallBlockN actionWithBlock:^(CCNode *node) {
-                        
-                        PLBallSprite *phNode = (PLBallSprite*)node;
-                        
-                        world->DestroyBody(phNode.b2Body);
-                        [node removeFromParentAndCleanup:YES];
-                        
-                        
-                        
-                    }]];
-                    [sprite runAction:seq];
+                    [needRemoveBalls addObject:sprite];
                 }
             }
         }
@@ -431,8 +424,17 @@
         haveAwakeBody = haveAwakeBody || b->IsAwake();
     }
     
+    for (PLBallSprite *ball in needRemoveBalls) {
+        world->DestroyBody([ball b2Body]);
+        CCSequence *seq = [CCSequence actionOne:[CCScaleTo actionWithDuration:0.3 scale:0.1] two:[CCCallBlockN actionWithBlock:^(CCNode *node) {
+            [node removeFromParentAndCleanup:YES];
+            [ball.mPlayer.mBalls removeObject:ball];
+        }]];
+        [ball runAction:seq];
+    }
+    
     if (haveAwakeBody) {
-        NSLog(@"Have Awake Body!");
+//        NSLog(@"Have Awake Body!");
     }
 	
 	// Instruct the world to perform a single step of simulation. It is
