@@ -15,6 +15,8 @@
 #import "GLES-Render.h"
 #import "PLCustomPanZoom.h"
 #import "PLContactListener.h"
+#import "PLLanchCycleSprite.h"
+
 //Pixel to metres ratio. Box2D uses metres as the unit for measurement.
 //This ratio defines how many pixels correspond to 1 Box2D "metre"
 //Box2D is optimized for objects of 1x1 metre therefore it makes sense
@@ -22,7 +24,7 @@
 
 
 // HelloWorldLayer
-@interface HelloWorldLayer : CCLayer <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate,CCLayerPanZoomClickDelegate>
+@interface HelloWorldLayer : CCLayer <PLLanchCycleDelegate,GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate,CCLayerPanZoomClickDelegate>
 {
 	CCTexture2D *spriteTexture_;	// weak ref
 	b2World* world;					// strong ref
@@ -30,7 +32,7 @@
     PLCustomPanZoom *_panZoomLayer;
     PLContactListener *_contactListener;
     CCLayerColor    *playerGround;
-   
+    PLLanchCycleSprite  *lanchCycle;
 }
 @property(nonatomic,retain)NSMutableArray           *playerArray;
 

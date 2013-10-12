@@ -38,8 +38,8 @@
         mDragDist = 0;
         mOriginPosition = self.position;
 		mTouchInProgress = YES;
-        if (mDelegate && [mDelegate respondsToSelector:@selector(DragBegin:)]) {
-            [mDelegate DragBegin:self];
+        if (self.mDelegate && [self.mDelegate respondsToSelector:@selector(DragBegin:)]) {
+            [self.mDelegate DragBegin:self];
         }
 		return YES;
 	}
@@ -58,8 +58,8 @@
         CGPoint prePt = [touch previousLocationInView:[touch view]];
         mDragDist += ABS(ccpDistance(curPt, prePt));
         self.position = [self.parent convertTouchToNodeSpace:touch];
-        if (mDelegate && [mDelegate respondsToSelector:@selector(Draging:)]) {
-            [mDelegate Draging:self];
+        if (self.mDelegate && [self.mDelegate respondsToSelector:@selector(Draging:)]) {
+            [self.mDelegate Draging:self];
         }
 	}
 }
@@ -71,8 +71,8 @@
     }
     
     if (mDragDist >= kENDragableNodeMinDragDist) {
-        if (mDelegate && [mDelegate respondsToSelector:@selector(DragEnd:)]) {
-            [mDelegate DragEnd:self];
+        if (self.mDelegate && [self.mDelegate respondsToSelector:@selector(DragEnd:)]) {
+            [self.mDelegate DragEnd:self];
         }
     }
     else

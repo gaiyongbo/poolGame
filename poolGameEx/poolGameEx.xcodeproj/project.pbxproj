@@ -197,6 +197,9 @@
 		92D87FF91807EFF800CA1811 /* 球3.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF51807EFF800CA1811 /* 球3.png */; };
 		92D87FFA1807EFF800CA1811 /* 球4.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF61807EFF800CA1811 /* 球4.png */; };
 		92FF8F0C1809250800B0CD2A /* PLContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92FF8F0B1809250800B0CD2A /* PLContactListener.mm */; };
+		FB0C05911809393E00B50DE6 /* cycle.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0C05901809393E00B50DE6 /* cycle.png */; };
+		FB0C059418093C7100B50DE6 /* PLLanchCycleSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.m */; };
+		FB0C059618093E1D00B50DE6 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0C059518093E1D00B50DE6 /* arrow.png */; };
 		FB89B2781808DE580040D4FA /* ENDragableSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2751808DE580040D4FA /* ENDragableSprite.m */; };
 		FB89B2791808DE580040D4FA /* ENTouchableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2771808DE580040D4FA /* ENTouchableNode.m */; };
 		FB89B27D1808E0960040D4FA /* ball.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB89B27B1808E0960040D4FA /* ball.plist */; };
@@ -596,6 +599,10 @@
 		92D87FF51807EFF800CA1811 /* 球3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球3.png"; path = "Resources/球3.png"; sourceTree = "<group>"; };
 		92D87FF61807EFF800CA1811 /* 球4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球4.png"; path = "Resources/球4.png"; sourceTree = "<group>"; };
 		92FF8F0B1809250800B0CD2A /* PLContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLContactListener.mm; sourceTree = "<group>"; };
+		FB0C05901809393E00B50DE6 /* cycle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cycle.png; path = Resources/cycle.png; sourceTree = "<group>"; };
+		FB0C059218093C7100B50DE6 /* PLLanchCycleSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLLanchCycleSprite.h; sourceTree = "<group>"; };
+		FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLLanchCycleSprite.m; sourceTree = "<group>"; };
+		FB0C059518093E1D00B50DE6 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = Resources/arrow.png; sourceTree = "<group>"; };
 		FB89B2741808DE580040D4FA /* ENDragableSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENDragableSprite.h; sourceTree = "<group>"; };
 		FB89B2751808DE580040D4FA /* ENDragableSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENDragableSprite.m; sourceTree = "<group>"; };
 		FB89B2761808DE580040D4FA /* ENTouchableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTouchableNode.h; sourceTree = "<group>"; };
@@ -681,6 +688,8 @@
 				9201AD4B18053FF500E9D540 /* libs */,
 				FB89B27F180911D80040D4FA /* PLBallSprite.h */,
 				FB89B280180911D80040D4FA /* PLBallSprite.mm */,
+				FB0C059218093C7100B50DE6 /* PLLanchCycleSprite.h */,
+				FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.m */,
 				FB89B282180912C50040D4FA /* PLPlayer.h */,
 				FB89B283180912C50040D4FA /* PLPlayer.m */,
 				92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */,
@@ -694,6 +703,8 @@
 		9201AD3318053FF500E9D540 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FB0C059518093E1D00B50DE6 /* arrow.png */,
+				FB0C05901809393E00B50DE6 /* cycle.png */,
 				FB89B27B1808E0960040D4FA /* ball.plist */,
 				FB89B27C1808E0960040D4FA /* ball.pvr.ccz */,
 				92D87FF31807EFF800CA1811 /* 球.png */,
@@ -1320,6 +1331,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB0C05911809393E00B50DE6 /* cycle.png in Resources */,
+				FB0C059618093E1D00B50DE6 /* arrow.png in Resources */,
 				9201AD4518053FF500E9D540 /* Icon.png in Resources */,
 				9201AFF518054B3400E9D540 /* background.png in Resources */,
 				9201AEA318053FF700E9D540 /* ChangeLog in Resources */,
@@ -1483,6 +1496,7 @@
 				9201AD9518053FF500E9D540 /* CCFontDefinition.m in Sources */,
 				9201ADD518053FF600E9D540 /* CCPhysicsSprite.mm in Sources */,
 				9201AF3918053FF800E9D540 /* b2MouseJoint.cpp in Sources */,
+				FB0C059418093C7100B50DE6 /* PLLanchCycleSprite.m in Sources */,
 				9201AEE418053FF800E9D540 /* b2PolygonShape.cpp in Sources */,
 				9201AEB918053FF700E9D540 /* vec2.c in Sources */,
 				9201AEF918053FF800E9D540 /* b2Timer.cpp in Sources */,

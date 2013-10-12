@@ -30,10 +30,12 @@
     
     CGPoint                         mOriginPosition;
 	
-    id<DragableDelegate>            mDelegate;
+    
     
     CGFloat                         mOriginScale;
 }
+
+@property(nonatomic,assign)id<DragableDelegate>            mDelegate;
 
 +(id)DragableSpriteWithSprite:(CCSprite*)sprite;
 -(id)InitWithSprite:(CCSprite*)sprite;

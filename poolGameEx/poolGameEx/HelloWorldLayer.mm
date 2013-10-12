@@ -14,11 +14,9 @@
 
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
-#import "ENDragableSprite.h"
 
 #import "PLPlayer.h"
 #import "PLBallSprite.h"
-
 
 #pragma mark - HelloWorldLayer
 
@@ -113,13 +111,6 @@
 		[self initGame];
 		
 		[self scheduleUpdate];
-        
-//        CCSprite *tt = [CCSprite spriteWithFile:@"Icon.png"];
-//        ENDragableSprite *ss = [ENDragableSprite DragableSpriteWithSprite:tt];
-//        ss.mSwallowTouches = YES;
-//        ss.mTouchPriority = kCCMenuHandlerPriority - 100;
-//        ss.position = centerOfSize(_panZoomLayer.contentSize);
-//        [_panZoomLayer addChild:ss];
 	}
 	return self;
 }
@@ -141,12 +132,24 @@
     [_panZoomLayer addChild:bgLayer z:0];
     playerGround = bgLayer;
     
+    lanchCycle = [PLLanchCycleSprite LanchCycleSprite];
+    lanchCycle.mDelegate = self;
+    lanchCycle.position = ccp(_panZoomLayer.contentSize.width - 100, _panZoomLayer.contentSize.height/2);
+    [_panZoomLayer addChild:lanchCycle z:0];
+    
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 4; j ++) {
             CGPoint pt = ccp(FRAME_X_POS + stepx*(i + 1), starty - stepy*(j + 1));
             [self addNewSpriteAtPosition:pt];
         }
     }
+}
+
+-(void)LanchWithForce:(CGPoint)force withPt:(CGPoint)pt
+{
+    CGFloat xForce = force.x;
+    CGFloat yForce = force.y;
+    [self addNewSpriteAtPosition:pt withForce:b2Vec2(xForce,yForce)];
 }
 
 -(void) dealloc
@@ -438,6 +441,8 @@
     if (haveAwakeBody) {
 //        NSLog(@"Have Awake Body!");
     }
+    
+    lanchCycle.mLanchAble = !haveAwakeBody;
 	
 	// Instruct the world to perform a single step of simulation. It is
 	// generally best to keep the time step and iterations fixed.
@@ -447,16 +452,16 @@
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	//Add a new body/atlas sprite at the touched location
-	for( UITouch *touch in touches ) {
-//		CGPoint location = [touch locationInView: [touch view]];
-		
-//		location = [[CCDirector sharedDirector] convertToGL: location];
-        CGPoint location = [_panZoomLayer convertTouchToNodeSpace:touch];
-		
-        CGFloat xForce = -(arc4random()%50 * 0.1 + 5);
-        CGFloat yForce = 5 - (arc4random()%100 * 0.1);
-		[self addNewSpriteAtPosition:location withForce:b2Vec2(xForce,yForce)];
-	}
+//	for( UITouch *touch in touches ) {
+////		CGPoint location = [touch locationInView: [touch view]];
+//		
+////		location = [[CCDirector sharedDirector] convertToGL: location];
+//        CGPoint location = [_panZoomLayer convertTouchToNodeSpace:touch];
+//		
+//        CGFloat xForce = -(arc4random()%50 * 0.1 + 5);
+//        CGFloat yForce = 5 - (arc4random()%100 * 0.1);
+//		[self addNewSpriteAtPosition:location withForce:b2Vec2(xForce,yForce)];
+//	}
 }
 
 #pragma mark GameKit delegate
