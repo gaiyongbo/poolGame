@@ -29,10 +29,10 @@
 	GLESDebugDraw *m_debugDraw;		// strong ref
     PLCustomPanZoom *_panZoomLayer;
     PLContactListener *_contactListener;
+    CCLayerColor    *playerGround;
    
 }
-@property (nonatomic,assign) NSMutableArray  *ballList;
-@property(nonatomic,retain)NSArray           *playerArray;
+@property(nonatomic,retain)NSMutableArray           *playerArray;
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;

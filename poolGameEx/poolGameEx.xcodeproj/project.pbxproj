@@ -192,16 +192,17 @@
 		9201AFDB1805434200E9D540 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9201AFA51805434200E9D540 /* README.md */; };
 		9201AFF518054B3400E9D540 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 9201AFF418054B3400E9D540 /* background.png */; };
 		92D87FEC1807D4FC00CA1811 /* PLCustomPanZoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */; };
-		92D87FF21807ED7A00CA1811 /* PLContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92D87FF01807ED7A00CA1811 /* PLContactListener.mm */; };
+		92D87FF21807ED7A00CA1811 /* PLContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92D87FF01807ED7A00CA1811 /* PLContactListener.cpp */; };
 		92D87FF71807EFF800CA1811 /* 球.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF31807EFF800CA1811 /* 球.png */; };
 		92D87FF81807EFF800CA1811 /* 球2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF41807EFF800CA1811 /* 球2.png */; };
 		92D87FF91807EFF800CA1811 /* 球3.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF51807EFF800CA1811 /* 球3.png */; };
 		92D87FFA1807EFF800CA1811 /* 球4.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D87FF61807EFF800CA1811 /* 球4.png */; };
-		92D87FFD1809160F00CA1811 /* PLGameDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D87FFC1809160F00CA1811 /* PLGameDataManager.m */; };
 		FB89B2781808DE580040D4FA /* ENDragableSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2751808DE580040D4FA /* ENDragableSprite.m */; };
 		FB89B2791808DE580040D4FA /* ENTouchableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2771808DE580040D4FA /* ENTouchableNode.m */; };
 		FB89B27D1808E0960040D4FA /* ball.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB89B27B1808E0960040D4FA /* ball.plist */; };
 		FB89B27E1808E0960040D4FA /* ball.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = FB89B27C1808E0960040D4FA /* ball.pvr.ccz */; };
+		FB89B281180911D80040D4FA /* PLBallSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB89B280180911D80040D4FA /* PLBallSprite.mm */; };
+		FB89B284180912C50040D4FA /* PLPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B283180912C50040D4FA /* PLPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -589,14 +590,12 @@
 		9201AFF418054B3400E9D540 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCustomPanZoom.h; sourceTree = "<group>"; };
 		92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLCustomPanZoom.m; sourceTree = "<group>"; };
-		92D87FF01807ED7A00CA1811 /* PLContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLContactListener.mm; sourceTree = "<group>"; };
+		92D87FF01807ED7A00CA1811 /* PLContactListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PLContactListener.cpp; sourceTree = "<group>"; };
 		92D87FF11807ED7A00CA1811 /* PLContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLContactListener.h; sourceTree = "<group>"; };
 		92D87FF31807EFF800CA1811 /* 球.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球.png"; path = "Resources/球.png"; sourceTree = "<group>"; };
 		92D87FF41807EFF800CA1811 /* 球2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球2.png"; path = "Resources/球2.png"; sourceTree = "<group>"; };
 		92D87FF51807EFF800CA1811 /* 球3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球3.png"; path = "Resources/球3.png"; sourceTree = "<group>"; };
 		92D87FF61807EFF800CA1811 /* 球4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "球4.png"; path = "Resources/球4.png"; sourceTree = "<group>"; };
-		92D87FFB1809160F00CA1811 /* PLGameDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLGameDataManager.h; sourceTree = "<group>"; };
-		92D87FFC1809160F00CA1811 /* PLGameDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLGameDataManager.m; sourceTree = "<group>"; };
 		FB89B2741808DE580040D4FA /* ENDragableSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENDragableSprite.h; sourceTree = "<group>"; };
 		FB89B2751808DE580040D4FA /* ENDragableSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENDragableSprite.m; sourceTree = "<group>"; };
 		FB89B2761808DE580040D4FA /* ENTouchableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTouchableNode.h; sourceTree = "<group>"; };
@@ -604,6 +603,10 @@
 		FB89B27A1808DE6C0040D4FA /* ENUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENUtility.h; sourceTree = "<group>"; };
 		FB89B27B1808E0960040D4FA /* ball.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ball.plist; path = Resources/ball.plist; sourceTree = "<group>"; };
 		FB89B27C1808E0960040D4FA /* ball.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = ball.pvr.ccz; path = Resources/ball.pvr.ccz; sourceTree = "<group>"; };
+		FB89B27F180911D80040D4FA /* PLBallSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLBallSprite.h; sourceTree = "<group>"; };
+		FB89B280180911D80040D4FA /* PLBallSprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLBallSprite.mm; sourceTree = "<group>"; };
+		FB89B282180912C50040D4FA /* PLPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlayer.h; sourceTree = "<group>"; };
+		FB89B283180912C50040D4FA /* PLPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -665,22 +668,24 @@
 		9201AD3218053FF500E9D540 /* poolGameEx */ = {
 			isa = PBXGroup;
 			children = (
-				92D87FFB1809160F00CA1811 /* PLGameDataManager.h */,
-				92D87FFC1809160F00CA1811 /* PLGameDataManager.m */,
-				92D87FF11807ED7A00CA1811 /* PLContactListener.h */,
-				92D87FF01807ED7A00CA1811 /* PLContactListener.mm */,
-				92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */,
-				92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */,
 				9201AF5618053FF800E9D540 /* AppDelegate.h */,
 				9201AF5718053FF800E9D540 /* AppDelegate.mm */,
+				9201AF5F18053FF800E9D540 /* GLES-Render.h */,
+				9201AF6018053FF800E9D540 /* GLES-Render.mm */,
 				9201AF5918053FF800E9D540 /* HelloWorldLayer.h */,
 				9201AF5A18053FF800E9D540 /* HelloWorldLayer.mm */,
 				9201AF5C18053FF800E9D540 /* IntroLayer.h */,
 				9201AF5D18053FF800E9D540 /* IntroLayer.mm */,
-				9201AF5F18053FF800E9D540 /* GLES-Render.h */,
-				9201AF6018053FF800E9D540 /* GLES-Render.mm */,
-				9201AD3318053FF500E9D540 /* Resources */,
 				9201AD4B18053FF500E9D540 /* libs */,
+				FB89B27F180911D80040D4FA /* PLBallSprite.h */,
+				FB89B280180911D80040D4FA /* PLBallSprite.mm */,
+				FB89B282180912C50040D4FA /* PLPlayer.h */,
+				FB89B283180912C50040D4FA /* PLPlayer.m */,
+				92D87FF01807ED7A00CA1811 /* PLContactListener.cpp */,
+				92D87FF11807ED7A00CA1811 /* PLContactListener.h */,
+				92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */,
+				92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */,
+				9201AD3318053FF500E9D540 /* Resources */,
 				9201AF5218053FF800E9D540 /* Supporting Files */,
 			);
 			path = poolGameEx;
@@ -1350,6 +1355,7 @@
 				FB89B2781808DE580040D4FA /* ENDragableSprite.m in Sources */,
 				9201AE5F18053FF700E9D540 /* ccUtils.c in Sources */,
 				9201ADB018053FF600E9D540 /* CCLayer.m in Sources */,
+				FB89B284180912C50040D4FA /* PLPlayer.m in Sources */,
 				9201AEDB18053FF700E9D540 /* b2ChainShape.cpp in Sources */,
 				9201AE1218053FF600E9D540 /* CCTileMapAtlas.m in Sources */,
 				9201AE1518053FF600E9D540 /* CCTMXLayer.m in Sources */,
@@ -1411,7 +1417,6 @@
 				9201ADF418053FF600E9D540 /* CCShaderCache.m in Sources */,
 				9201ADFA18053FF600E9D540 /* CCSprite.m in Sources */,
 				9201AF2018053FF800E9D540 /* b2EdgeAndCircleContact.cpp in Sources */,
-				92D87FFD1809160F00CA1811 /* PLGameDataManager.m in Sources */,
 				9201ADA118053FF600E9D540 /* CCGrabber.m in Sources */,
 				9201AEAB18053FF700E9D540 /* mat3.c in Sources */,
 				9201AFDA1805434200E9D540 /* CCLayerPanZoom.m in Sources */,
@@ -1446,6 +1451,7 @@
 				9201AE6618053FF700E9D540 /* CGPointExtension.m in Sources */,
 				9201AD6A18053FF500E9D540 /* CCActionPageTurn3D.m in Sources */,
 				9201AF5B18053FF800E9D540 /* HelloWorldLayer.mm in Sources */,
+				FB89B281180911D80040D4FA /* PLBallSprite.mm in Sources */,
 				9201AEBB18053FF700E9D540 /* vec3.c in Sources */,
 				9201AE6D18053FF700E9D540 /* TGAlib.m in Sources */,
 				9201AD7618053FF500E9D540 /* CCAnimation.m in Sources */,
@@ -1480,7 +1486,7 @@
 				9201AEB918053FF700E9D540 /* vec2.c in Sources */,
 				9201AEF918053FF800E9D540 /* b2Timer.cpp in Sources */,
 				9201AEA918053FF700E9D540 /* matrix.c in Sources */,
-				92D87FF21807ED7A00CA1811 /* PLContactListener.mm in Sources */,
+				92D87FF21807ED7A00CA1811 /* PLContactListener.cpp in Sources */,
 				9201AF1A18053FF800E9D540 /* b2Contact.cpp in Sources */,
 				9201AD8F18053FF500E9D540 /* CCDrawingPrimitives.m in Sources */,
 				9201ADF718053FF600E9D540 /* ccShaders.m in Sources */,

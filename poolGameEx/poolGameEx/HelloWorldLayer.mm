@@ -16,14 +16,14 @@
 #import "AppDelegate.h"
 #import "ENDragableSprite.h"
 
-
+#import "PLPlayer.h"
+#import "PLBallSprite.h"
 
 
 #pragma mark - HelloWorldLayer
 
 @interface HelloWorldLayer()
 -(void) initPhysics;
--(void) addNewSpriteAtPosition:(CGPoint)p withTag:(int)tag;
 -(void) createMenu;
 @end
 
@@ -49,8 +49,12 @@
 	if( (self=[super init])) {
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"ball.plist"];
 
-		self.ballList = [NSMutableArray array];
-        self.playerArray = @[@"0", @"1", @"2", @"3"];
+        self.playerArray = [NSMutableArray arrayWithCapacity:4];
+        for (int i = 0; i < 4; i++) {
+            PLPlayer *player = [[[PLPlayer alloc] init] autorelease];
+            player.mType = (PLPlayerType)i;
+            [self.playerArray addObject:player];
+        }
         
         //创建可滚动的层
 	     _panZoomLayer = [[PLCustomPanZoom node] retain];
@@ -135,10 +139,12 @@
     bgLayer.ignoreAnchorPointForPosition = NO;
     bgLayer.anchorPoint = ccp(0, 1);
     [_panZoomLayer addChild:bgLayer z:0];
+    playerGround = bgLayer;
     
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 4; j ++) {
-            [self addNewSpriteAtPosition:ccp(FRAME_X_POS + stepx*(i + 1), starty - stepy*(j + 1)) withTag:i*j];
+            CGPoint pt = ccp(FRAME_X_POS + stepx*(i + 1), starty - stepy*(j + 1));
+            [self addNewSpriteAtPosition:pt];
         }
     }
 }
@@ -288,6 +294,38 @@
     body->ApplyLinearImpulse(force,body->GetPosition());
 }
 
+-(b2Body*)CreateBodyAtPosition:(CGPoint)p
+{
+    CCLOG(@"Add sprite %0.2f x %02.f",p.x,p.y);
+	// Define the dynamic body.
+	//Set up a 1m squared box in the physics world
+	b2BodyDef bodyDef;
+    bodyDef.angularDamping = 0.5f;
+    bodyDef.linearDamping = 0.7f;
+	
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
+	b2Body *body = world->CreateBody(&bodyDef);
+	
+	// Define another box shape for our dynamic body.
+    b2CircleShape  dynamicCircle;
+    dynamicCircle.m_radius = 12.0/PTM_RATIO;
+    
+    //b2PolygonShape dynamicCircle;
+    //dynamicCircle.SetAsBox(0.5, 0.5);
+	// Define the dynamic body fixture.
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &dynamicCircle;
+	
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.5f;
+    fixtureDef.restitution = 1.0f;
+    
+	body->CreateFixture(&fixtureDef);
+    
+    return body;
+}
+
 -(CCPhysicsSprite*)createSpriteAtPosition:(CGPoint)p
 {
     CCLOG(@"Add sprite %0.2f x %02.f",p.x,p.y);
@@ -325,28 +363,31 @@
 	
 	[sprite setPTMRatio:PTM_RATIO];
 	[sprite setB2Body:body];
-    body->SetUserData(sprite);
 	[sprite setPosition: ccp( p.x, p.y)];
     
     return sprite;
 }
 
--(void)addNewSpriteAtPosition:(CGPoint)p withForce:(b2Vec2)force withTag: (int)tag
+-(void)addNewSpriteAtPosition:(CGPoint)p withForce:(b2Vec2)force
 {
-    CCPhysicsSprite *sprite = [self createSpriteAtPosition:p];
     CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
-    [parent addChild:sprite z:1 tag:tag];
     
-    b2Body *body = [sprite b2Body];
+    b2Body *body = [self CreateBodyAtPosition:p];
+    NSInteger index = arc4random()%4;
+    PLBallSprite *sprite = [PLBallSprite BallSpriteWithPlayer:[self.playerArray objectAtIndex:index] withBody:body];
+    [parent addChild:sprite];
+    
     body->ApplyLinearImpulse(force,body->GetPosition());
 }
 
--(void) addNewSpriteAtPosition:(CGPoint)p withTag:(int)tag
+-(void) addNewSpriteAtPosition:(CGPoint)p
 {
-    CCPhysicsSprite *sprite = [self createSpriteAtPosition:p];
-    
     CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
-    [parent addChild:sprite z:1 tag:tag];
+
+    b2Body *body = [self CreateBodyAtPosition:p];
+    NSInteger index = arc4random()%4;
+    PLBallSprite *sprite = [PLBallSprite BallSpriteWithPlayer:[self.playerArray objectAtIndex:index] withBody:body];
+    [parent addChild:sprite];
 }
 
 -(void) update: (ccTime) dt
@@ -358,6 +399,34 @@
 	
 	int32 velocityIterations = 8;
 	int32 positionIterations = 1;
+    
+    BOOL haveAwakeBody = NO;
+    for(b2Body* b = world->GetBodyList(); b && b->GetType() == b2_dynamicBody; b = b->GetNext())
+    {
+        b2Vec2 velo = b->GetLinearVelocity();
+        if (ABS(velo.x) < 0.1 && ABS(velo.y) < 0.1) {
+            b->SetAwake(NO);
+        }
+        
+        if (!b->IsAwake() && b->GetUserData())
+        {
+            PLBallSprite *sprite = (PLBallSprite*)b->GetUserData();
+            if (sprite && [sprite isKindOfClass:[PLBallSprite class]]) {
+                if (!CGRectIntersectsRect(playerGround.boundingBox, sprite.boundingBox)) {
+                    CCSequence *seq = [CCSequence actionOne:[CCScaleTo actionWithDuration:0.3 scale:0.1] two:[CCCallBlockN actionWithBlock:^(CCNode *node) {
+                        [node removeFromParentAndCleanup:YES];
+                    }]];
+                    [sprite runAction:seq];
+                }
+            }
+        }
+        
+        haveAwakeBody = haveAwakeBody || b->IsAwake();
+    }
+    
+    if (haveAwakeBody) {
+        NSLog(@"Have Awake Body!");
+    }
 	
 	// Instruct the world to perform a single step of simulation. It is
 	// generally best to keep the time step and iterations fixed.
@@ -375,7 +444,7 @@
 		
         CGFloat xForce = -(arc4random()%50 * 0.1 + 5);
         CGFloat yForce = 5 - (arc4random()%100 * 0.1);
-		[self addNewSpriteAtPosition:location withForce:b2Vec2(xForce,yForce) withTag:kStartBallTag];
+		[self addNewSpriteAtPosition:location withForce:b2Vec2(xForce,yForce)];
 	}
 }
 

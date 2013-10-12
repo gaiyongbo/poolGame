@@ -12,6 +12,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "ENUtility.h"
+#import "cocos2d.h"
 #endif
 
 #define PTM_RATIO 32
