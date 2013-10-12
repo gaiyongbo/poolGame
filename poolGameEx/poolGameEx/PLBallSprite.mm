@@ -21,6 +21,7 @@
     
     self = [super initWithSpriteFrameName:spriteFrameName];
     if (self) {
+        self.mIsCurrent = NO;
         self.mPlayer = player;
         
         [self setPTMRatio:PTM_RATIO];

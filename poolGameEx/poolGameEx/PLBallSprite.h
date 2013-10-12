@@ -19,4 +19,5 @@
 -(id)InitWithPlayer:(PLPlayer*)player withBody:(b2Body*)body;
 
 @property(nonatomic,assign)PLPlayer     *mPlayer;
+@property(nonatomic)BOOL                mIsCurrent;
 @end

@@ -375,6 +375,7 @@
     b2Body *body = [self CreateBodyAtPosition:p];
     NSInteger index = arc4random()%4;
     PLBallSprite *sprite = [PLBallSprite BallSpriteWithPlayer:[self.playerArray objectAtIndex:index] withBody:body];
+    sprite.mIsCurrent = YES;
     [parent addChild:sprite];
     
     body->ApplyLinearImpulse(force,body->GetPosition());
@@ -415,6 +416,7 @@
         {
             PLBallSprite *sprite = (PLBallSprite*)b->GetUserData();
             if (sprite && [sprite isKindOfClass:[PLBallSprite class]]) {
+                sprite.mIsCurrent = NO;
                 if (!CGRectIntersectsRect(playerGround.boundingBox, sprite.boundingBox)) {
                     [needRemoveBalls addObject:sprite];
                 }
