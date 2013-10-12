@@ -14,6 +14,7 @@
 
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
+#import "ENDragableSprite.h"
 
 enum nodeTags{
 	kTagParentNode = 0,
@@ -106,6 +107,13 @@ enum nodeTags{
 		label.position = ccp( s.width/2, s.height-50);
 		
 		[self scheduleUpdate];
+        
+        CCSprite *tt = [CCSprite spriteWithFile:@"Icon.png"];
+        ENDragableSprite *ss = [ENDragableSprite DragableSpriteWithSprite:tt];
+        ss.mSwallowTouches = YES;
+        ss.mTouchPriority = kCCMenuHandlerPriority - 100;
+        ss.position = centerOfSize(_panZoomLayer.contentSize);
+        [_panZoomLayer addChild:ss];
 	}
 	return self;
 }

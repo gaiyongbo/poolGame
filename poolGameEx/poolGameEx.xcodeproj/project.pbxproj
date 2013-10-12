@@ -191,6 +191,8 @@
 		9201AFDA1805434200E9D540 /* CCLayerPanZoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 9201AFA41805434200E9D540 /* CCLayerPanZoom.m */; };
 		9201AFDB1805434200E9D540 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9201AFA51805434200E9D540 /* README.md */; };
 		9201AFF518054B3400E9D540 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 9201AFF418054B3400E9D540 /* background.png */; };
+		FB89B26E1807EAAF0040D4FA /* ENTouchableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B26D1807EAAF0040D4FA /* ENTouchableNode.m */; };
+		FB89B2711807F2C20040D4FA /* ENDragableSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2701807F2C20040D4FA /* ENDragableSprite.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -576,6 +578,11 @@
 		9201AFA41805434200E9D540 /* CCLayerPanZoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLayerPanZoom.m; sourceTree = "<group>"; };
 		9201AFA51805434200E9D540 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		9201AFF418054B3400E9D540 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		FB89B26C1807EAAF0040D4FA /* ENTouchableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTouchableNode.h; sourceTree = "<group>"; };
+		FB89B26D1807EAAF0040D4FA /* ENTouchableNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENTouchableNode.m; sourceTree = "<group>"; };
+		FB89B26F1807F2C20040D4FA /* ENDragableSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENDragableSprite.h; sourceTree = "<group>"; };
+		FB89B2701807F2C20040D4FA /* ENDragableSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENDragableSprite.m; sourceTree = "<group>"; };
+		FB89B2721807F62A0040D4FA /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1196,6 +1203,8 @@
 		9201AF9B1805434200E9D540 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				FB89B2721807F62A0040D4FA /* Utility.h */,
+				FB89B26B1807EA9B0040D4FA /* EnButtonSupport */,
 				9201AFA21805434200E9D540 /* CCLayerPanZoom */,
 			);
 			path = Extensions;
@@ -1209,6 +1218,17 @@
 				9201AFA51805434200E9D540 /* README.md */,
 			);
 			path = CCLayerPanZoom;
+			sourceTree = "<group>";
+		};
+		FB89B26B1807EA9B0040D4FA /* EnButtonSupport */ = {
+			isa = PBXGroup;
+			children = (
+				FB89B26C1807EAAF0040D4FA /* ENTouchableNode.h */,
+				FB89B26D1807EAAF0040D4FA /* ENTouchableNode.m */,
+				FB89B26F1807F2C20040D4FA /* ENDragableSprite.h */,
+				FB89B2701807F2C20040D4FA /* ENDragableSprite.m */,
+			);
+			path = EnButtonSupport;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1313,6 +1333,7 @@
 				9201AD7318053FF500E9D540 /* CCActionTween.m in Sources */,
 				9201ADAA18053FF600E9D540 /* CCLabelBMFont.m in Sources */,
 				9201AF3318053FF800E9D540 /* b2GearJoint.cpp in Sources */,
+				FB89B2711807F2C20040D4FA /* ENDragableSprite.m in Sources */,
 				9201AE5718053FF700E9D540 /* ccCArray.m in Sources */,
 				9201AE8118053FF700E9D540 /* CDXMacOSXSupport.m in Sources */,
 				9201AF6118053FF800E9D540 /* GLES-Render.mm in Sources */,
@@ -1379,6 +1400,7 @@
 				9201AD7C18053FF500E9D540 /* CCAtlasNode.m in Sources */,
 				9201AF5818053FF800E9D540 /* AppDelegate.mm in Sources */,
 				9201AE4018053FF700E9D540 /* CCTouchHandler.m in Sources */,
+				FB89B26E1807EAAF0040D4FA /* ENTouchableNode.m in Sources */,
 				9201ADBA18053FF600E9D540 /* CCMotionStreak.m in Sources */,
 				9201AEEC18053FF800E9D540 /* b2Draw.cpp in Sources */,
 				9201AE3918053FF700E9D540 /* CCGLView.m in Sources */,
@@ -1563,6 +1585,7 @@
 				9201AF6818053FF800E9D540 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
