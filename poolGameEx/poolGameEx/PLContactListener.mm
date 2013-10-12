@@ -7,19 +7,23 @@
 //
 
 #include "PLContactListener.h"
-#include "cocos2d.h"
 #include "PLGameDataManager.h"
+#include "PLBallSprite.h"
+
 void PLContactListener::BeginContact(b2Contact* contact)
 {
     b2Body* bodyA = contact->GetFixtureA()->GetBody();
     b2Body* bodyB = contact->GetFixtureB()->GetBody();
-    CCSprite* spriteA = (CCSprite*)bodyA->GetUserData();
-    CCSprite* spriteB = (CCSprite*)bodyB->GetUserData();
+    PLBallSprite* spriteA = (PLBallSprite*)bodyA->GetUserData();
+    PLBallSprite* spriteB = (PLBallSprite*)bodyB->GetUserData();
     
-    if (spriteA.tag == kStartBallTag || spriteB.tag == kStartBallTag) {
+    if (spriteA.mIsCurrent && spriteB) {
         //得分
+        spriteA.mPlayer.mScore += 1;
         NSLog(@"get 1 point");
-
+    } else if (spriteB.mIsCurrent && spriteA) {
+        NSLog(@"get 1 point");
+        spriteB.mPlayer.mScore += 1;
     }
 }
 

@@ -10,6 +10,7 @@
 
 @implementation PLBallSprite
 
+@synthesize mIsCurrent;
 +(id)BallSpriteWithPlayer:(PLPlayer *)player withBody:(b2Body *)body
 {
     return [[[PLBallSprite alloc] InitWithPlayer:player withBody:body] autorelease];
