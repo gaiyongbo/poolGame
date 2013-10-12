@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "Box2D.h"
+
 class PLContactListener : public b2ContactListener
 {
 private:

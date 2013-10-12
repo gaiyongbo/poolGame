@@ -315,6 +315,7 @@
 	
 	[sprite setPTMRatio:PTM_RATIO];
 	[sprite setB2Body:body];
+    body->SetUserData(sprite);
 	[sprite setPosition: ccp( p.x, p.y)];
 
 }
