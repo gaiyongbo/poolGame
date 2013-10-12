@@ -193,7 +193,7 @@ typedef enum
 #else
 		self.isRelativeAnchorPoint = YES;
 #endif
-		self.isTouchEnabled = YES;
+		self.touchEnabled = YES;
 		
 		self.maxScale = 3.0f;
 		self.minScale = 0.5f;
@@ -423,7 +423,7 @@ typedef enum
     CCScheduler *scheduler = [CCScheduler sharedScheduler];
 #endif 
     
-    [scheduler unscheduleAllSelectorsForTarget: self];
+    [scheduler unscheduleAllForTarget:self];
     [super onExit];
 }
 
