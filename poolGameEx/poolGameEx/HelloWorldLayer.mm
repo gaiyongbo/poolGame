@@ -14,6 +14,7 @@
 
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
+#import "ENDragableSprite.h"
 
 
 
@@ -46,8 +47,10 @@
 -(id) init
 {
 	if( (self=[super init])) {
-        
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"ball.plist"];
+
 		self.ballList = [NSMutableArray array];
+        self.playerArray = @[@"0", @"1", @"2", @"3"];
         
         //创建可滚动的层
 	     _panZoomLayer = [[PLCustomPanZoom node] retain];
@@ -87,23 +90,32 @@
 		
 		//Set up sprite
 		
-#if 1
-		// Use batch node. Faster
-		CCSpriteBatchNode *parent = [CCSpriteBatchNode batchNodeWithFile:@"球3.png" capacity:100];
-		spriteTexture_ = [parent texture];
+//#if 1
+//		// Use batch node. Faster
+//		CCSpriteBatchNode *parent = [CCSpriteBatchNode batchNodeWithFile:@"球3.png" capacity:100];
+//		spriteTexture_ = [parent texture];
+//        
+//        [spriteTexture_ setAntiAliasTexParameters];
+//#else
+//		// doesn't use batch node. Slower
+//		spriteTexture_ = [[CCTextureCache sharedTextureCache] addImage:@"球3.png"];
+//		CCNode *parent = [CCNode node];
+//#endif
         
-        [spriteTexture_ setAntiAliasTexParameters];
-#else
-		// doesn't use batch node. Slower
-		spriteTexture_ = [[CCTextureCache sharedTextureCache] addImage:@"球3.png"];
-		CCNode *parent = [CCNode node];
-#endif
-		[_panZoomLayer addChild:parent z:0 tag:kTagParentNode];
-		
+        CCSpriteBatchNode *parent = [CCSpriteBatchNode batchNodeWithFile:@"ball.pvr.ccz" capacity:100];
+        [parent.texture setAntiAliasTexParameters];
+		[_panZoomLayer addChild:parent z:1 tag:kTagParentNode];
 		
 		[self initGame];
 		
 		[self scheduleUpdate];
+        
+//        CCSprite *tt = [CCSprite spriteWithFile:@"Icon.png"];
+//        ENDragableSprite *ss = [ENDragableSprite DragableSpriteWithSprite:tt];
+//        ss.mSwallowTouches = YES;
+//        ss.mTouchPriority = kCCMenuHandlerPriority - 100;
+//        ss.position = centerOfSize(_panZoomLayer.contentSize);
+//        [_panZoomLayer addChild:ss];
 	}
 	return self;
 }
@@ -118,15 +130,17 @@
     int stepx =   FRAME_SIZE/4;
     int stepy = FRAME_SIZE/5;
     
+    CCLayerColor *bgLayer = [CCLayerColor layerWithColor:ccc4(255, 0, 0, 200) width:FRAME_SIZE height:FRAME_SIZE];
+    bgLayer.position = ccp(FRAME_X_POS, starty);
+    bgLayer.ignoreAnchorPointForPosition = NO;
+    bgLayer.anchorPoint = ccp(0, 1);
+    [_panZoomLayer addChild:bgLayer z:0];
+    
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 4; j ++) {
             [self addNewSpriteAtPosition:ccp(FRAME_X_POS + stepx*(i + 1), starty - stepy*(j + 1)) withTag:i*j];
         }
     }
-    
-    //画开始的球
-     [self addNewSpriteAtPosition:ccp(s.width*SIZE_RATIO - 150, s.height*SIZE_RATIO*0.5 + 24) withTag:kStartBallTag];
-    
 }
 
 -(void) dealloc
@@ -213,10 +227,10 @@
 	
     uint32 flags = 0;
 	flags += b2Draw::e_shapeBit;
-	//		flags += b2Draw::e_jointBit;
-	//		flags += b2Draw::e_aabbBit;
-	//		flags += b2Draw::e_pairBit;
-	//		flags += b2Draw::e_centerOfMassBit;
+//		flags += b2Draw::e_jointBit;
+//		flags += b2Draw::e_aabbBit;
+//		flags += b2Draw::e_pairBit;
+//		flags += b2Draw::e_centerOfMassBit;
 	m_debugDraw->SetFlags(flags);
 	
 	
@@ -268,9 +282,15 @@
 	kmGLPopMatrix();
 }
 
--(void) addNewSpriteAtPosition:(CGPoint)p withTag:(int)tag
+-(void)ApplyLinearImpulseSprite:(CCPhysicsSprite*)sprite withForce:(b2Vec2)force withPt:(b2Vec2)pt
 {
-	CCLOG(@"Add sprite %0.2f x %02.f",p.x,p.y);
+    b2Body *body = [sprite b2Body];
+    body->ApplyLinearImpulse(force,body->GetPosition());
+}
+
+-(CCPhysicsSprite*)createSpriteAtPosition:(CGPoint)p
+{
+    CCLOG(@"Add sprite %0.2f x %02.f",p.x,p.y);
 	// Define the dynamic body.
 	//Set up a 1m squared box in the physics world
 	b2BodyDef bodyDef;
@@ -284,7 +304,7 @@
 	// Define another box shape for our dynamic body.
     b2CircleShape  dynamicCircle;
     dynamicCircle.m_radius = 12.0/PTM_RATIO;
-  
+    
     //b2PolygonShape dynamicCircle;
     //dynamicCircle.SetAsBox(0.5, 0.5);
 	// Define the dynamic body fixture.
@@ -294,30 +314,39 @@
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.5f;
     fixtureDef.restitution = 1.0f;
-
-	body->CreateFixture(&fixtureDef);
-
     
-   //if (kStartBallTag == tag) {
-        
-        b2Vec2 force = b2Vec2(-10,0);
-        body->ApplyLinearImpulse(force,bodyDef.position);
-    //}
-   
-	CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
-	
-	//We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is
-	//just randomly picking one of the images
-
-	CCPhysicsSprite *sprite =[CCPhysicsSprite spriteWithTexture:spriteTexture_];
-    sprite.tag = tag;
-	[parent addChild:sprite];
+	body->CreateFixture(&fixtureDef);
+    
+    NSInteger index = arc4random()%4;
+    body->SetUserData([self.playerArray objectAtIndex:index]);
+    NSString *spriteFrameName = [NSString stringWithFormat:@"ball_%d.png", index];
+    
+    CCPhysicsSprite *sprite = [CCPhysicsSprite spriteWithSpriteFrameName:spriteFrameName];
 	
 	[sprite setPTMRatio:PTM_RATIO];
 	[sprite setB2Body:body];
     body->SetUserData(sprite);
 	[sprite setPosition: ccp( p.x, p.y)];
+    
+    return sprite;
+}
 
+-(void)addNewSpriteAtPosition:(CGPoint)p withForce:(b2Vec2)force
+{
+    CCPhysicsSprite *sprite = [self createSpriteAtPosition:p];
+    CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
+    [parent addChild:sprite];
+    
+    b2Body *body = [sprite b2Body];
+    body->ApplyLinearImpulse(force,body->GetPosition());
+}
+
+-(void) addNewSpriteAtPosition:(CGPoint)p withTag:(int)tag
+{
+    CCPhysicsSprite *sprite = [self createSpriteAtPosition:p];
+    
+    CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
+    [parent addChild:sprite];
 }
 
 -(void) update: (ccTime) dt
@@ -339,11 +368,14 @@
 {
 	//Add a new body/atlas sprite at the touched location
 	for( UITouch *touch in touches ) {
-		CGPoint location = [touch locationInView: [touch view]];
+//		CGPoint location = [touch locationInView: [touch view]];
 		
-		location = [[CCDirector sharedDirector] convertToGL: location];
+//		location = [[CCDirector sharedDirector] convertToGL: location];
+        CGPoint location = [_panZoomLayer convertTouchToNodeSpace:touch];
 		
-		[self addNewSpriteAtPosition:location withTag: 0];
+        CGFloat xForce = -(arc4random()%50 * 0.1 + 5);
+        CGFloat yForce = 5 - (arc4random()%100 * 0.1);
+		[self addNewSpriteAtPosition:location withForce:b2Vec2(xForce,yForce)];
 	}
 }
 

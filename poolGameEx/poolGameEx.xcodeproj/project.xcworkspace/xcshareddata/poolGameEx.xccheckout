@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>916192D9-BAA3-4D61-AA39-C016434E6392</string>
+	<string>AB4242EE-1B2F-403A-B047-68F19D2E7FF6</string>
 	<key>IDESourceControlProjectName</key>
 	<string>poolGameEx</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>E66F6729-06B0-4CFC-8C7A-DFB387A4545B</key>
-		<string>https://github.com/gaiyongbo/poolGame.git</string>
+		<key>C09F9F5B-594B-47AF-BF43-9C0CAF9B1D87</key>
+		<string>https://github.com/gaiyongbo/poolGame</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>poolGameEx/poolGameEx.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>E66F6729-06B0-4CFC-8C7A-DFB387A4545B</key>
+		<key>C09F9F5B-594B-47AF-BF43-9C0CAF9B1D87</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/gaiyongbo/poolGame.git</string>
+	<string>https://github.com/gaiyongbo/poolGame</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E66F6729-06B0-4CFC-8C7A-DFB387A4545B</string>
+	<string>C09F9F5B-594B-47AF-BF43-9C0CAF9B1D87</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E66F6729-06B0-4CFC-8C7A-DFB387A4545B</string>
+			<string>C09F9F5B-594B-47AF-BF43-9C0CAF9B1D87</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Pool</string>
+			<string>PoolGame</string>
 		</dict>
 	</array>
 </dict>

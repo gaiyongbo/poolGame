@@ -32,6 +32,7 @@
    
 }
 @property (nonatomic,assign) NSMutableArray  *ballList;
+@property(nonatomic,retain)NSArray           *playerArray;
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;
