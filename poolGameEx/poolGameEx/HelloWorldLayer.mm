@@ -17,7 +17,9 @@
 
 #import "PLPlayer.h"
 #import "PLBallSprite.h"
+#import "PLScoreBoardLayer.h"
 
+static HelloWorldLayer *_curGameLayer = nil;
 #pragma mark - HelloWorldLayer
 
 @interface HelloWorldLayer()
@@ -26,6 +28,11 @@
 @end
 
 @implementation HelloWorldLayer
+
++(HelloWorldLayer*)CurGameLayer
+{
+    return _curGameLayer;
+}
 
 +(CCScene *) scene
 {
@@ -37,23 +44,16 @@
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
-	
+    
 	// return the scene
 	return scene;
 }
 
 -(id) init
 {
-	if( (self=[super init])) {
+	if( (self=[super init])) {        
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"ball.plist"];
 
-        self.playerArray = [NSMutableArray arrayWithCapacity:4];
-        for (int i = 0; i < 4; i++) {
-            PLPlayer *player = [[[PLPlayer alloc] init] autorelease];
-            player.mType = (PLPlayerType)i;
-            [self.playerArray addObject:player];
-        }
-        
         //创建可滚动的层
 	     _panZoomLayer = [[PLCustomPanZoom node] retain];
         //_panZoomLayer.anchorPoint = ccp(0,0);
@@ -83,34 +83,28 @@
 		self.touchEnabled = YES;
 		self.accelerometerEnabled = YES;
 		
-		
 		// init physics
 		[self initPhysics];
-		
-		// create reset button
-		//[self createMenu];
-		
-		//Set up sprite
-		
-//#if 1
-//		// Use batch node. Faster
-//		CCSpriteBatchNode *parent = [CCSpriteBatchNode batchNodeWithFile:@"球3.png" capacity:100];
-//		spriteTexture_ = [parent texture];
-//        
-//        [spriteTexture_ setAntiAliasTexParameters];
-//#else
-//		// doesn't use batch node. Slower
-//		spriteTexture_ = [[CCTextureCache sharedTextureCache] addImage:@"球3.png"];
-//		CCNode *parent = [CCNode node];
-//#endif
-        
-        CCSpriteBatchNode *parent = [CCSpriteBatchNode batchNodeWithFile:@"ball.pvr.ccz" capacity:100];
-        [parent.texture setAntiAliasTexParameters];
-		[_panZoomLayer addChild:parent z:1 tag:kTagParentNode];
 		
 		[self initGame];
 		
 		[self scheduleUpdate];
+        
+        [self addChild:[PLScoreBoardLayer node]];
+        
+        CCMenuItemLabel *reset = [CCMenuItemFont itemWithString:@"Reset" block:^(id sender){
+            [[CCDirector sharedDirector] replaceScene: [HelloWorldLayer scene]];
+        }];
+        
+        CCMenu *menu = [CCMenu menuWithItems:reset, nil];
+        menu.position = ccp(0, 0);
+        [menu alignItemsVertically];
+        reset.position = ccp(20, menu.contentSize.height - 25);
+        reset.anchorPoint = ccp(0, 1);
+
+
+        [self addChild:menu z:5];
+        _curGameLayer = self;
 	}
 	return self;
 }
@@ -122,8 +116,6 @@
     CGSize s = [CCDirector sharedDirector].winSize;
     
     int starty = s.height*SIZE_RATIO*0.5 + FRAME_SIZE*0.5;
-    int stepx =   FRAME_SIZE/4;
-    int stepy = FRAME_SIZE/5;
     
     CCLayerColor *bgLayer = [CCLayerColor layerWithColor:ccc4(255, 0, 0, 200) width:FRAME_SIZE height:FRAME_SIZE];
     bgLayer.position = ccp(FRAME_X_POS, starty);
@@ -134,22 +126,60 @@
     
     lanchCycle = [PLLanchCycleSprite LanchCycleSprite];
     lanchCycle.mDelegate = self;
-    lanchCycle.position = ccp(_panZoomLayer.contentSize.width - 100, _panZoomLayer.contentSize.height/2);
+    lanchCycle.position = ccp(_panZoomLayer.contentSize.width - 130, _panZoomLayer.contentSize.height/2);
     [_panZoomLayer addChild:lanchCycle z:0];
+    
+    [self startGame];
+}
+
+-(void)startGame
+{
+    self.playerArray = [NSMutableArray arrayWithCapacity:4];
+    for (int i = 0; i < 4; i++) {
+        PLPlayer *player = [[[PLPlayer alloc] init] autorelease];
+        player.mType = (PLPlayerType)i;
+        [self.playerArray addObject:player];
+    }
+    
+    if (ballBatchNode) {
+        [ballBatchNode removeFromParentAndCleanup:YES];
+    }
+    
+    ballBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"ball.pvr.ccz" capacity:100];
+    [ballBatchNode.texture setAntiAliasTexParameters];
+    [_panZoomLayer addChild:ballBatchNode z:1];
+    
+    CGSize s = [CCDirector sharedDirector].winSize;
+    
+    int starty = s.height*SIZE_RATIO*0.5 + FRAME_SIZE*0.5;
+    int stepx =   FRAME_SIZE/4;
+    int stepy = FRAME_SIZE/5;
+    
+    NSMutableArray *playerBallArray = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0",
+                                                                       @"1",@"1",@"1",
+                                                                       @"2",@"2",@"2",
+                                                                       @"3",@"3",@"3"]];
     
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 4; j ++) {
             CGPoint pt = ccp(FRAME_X_POS + stepx*(i + 1), starty - stepy*(j + 1));
-            [self addNewSpriteAtPosition:pt];
+            NSInteger index = arc4random() % playerBallArray.count;
+            [self addNewSpriteAtPosition:pt withPlayer:(PLPlayerType)[[playerBallArray objectAtIndex:index] integerValue]];
+            [playerBallArray removeObjectAtIndex:index];
         }
     }
+    
+    self.gameStatus = PLGameStatusReadyToLanch;
 }
 
--(void)LanchWithForce:(CGPoint)force withPt:(CGPoint)pt
+-(void)LanchWithForce:(CGPoint)force withPt:(CGPoint)pt withPlayerType:(PLPlayerType)pType
 {
-    CGFloat xForce = force.x;
-    CGFloat yForce = force.y;
-    [self addNewSpriteAtPosition:pt withForce:b2Vec2(xForce,yForce)];
+//    CGFloat xForce = force.x;
+//    CGFloat yForce = force.y;
+    PLPlayer *player = [self.playerArray objectAtIndex:pType];
+    player.mBallCount -= 1;
+    [[self addNewSpriteAtPosition:pt withPlayer:pType] Impulse:force];
+//    withForce:b2Vec2(xForce,yForce)
 }
 
 -(void) dealloc
@@ -159,7 +189,9 @@
 	
 	delete m_debugDraw;
 	m_debugDraw = NULL;
-	
+    
+    _curGameLayer = nil;
+    	
 	[super dealloc];
 }	
 
@@ -217,7 +249,6 @@
 
 -(void) initPhysics
 {
-	
 	CGSize s = [[CCDirector sharedDirector] winSize];
 	
 	b2Vec2 gravity;
@@ -329,69 +360,12 @@
     return body;
 }
 
--(CCPhysicsSprite*)createSpriteAtPosition:(CGPoint)p
+-(PLBallSprite*) addNewSpriteAtPosition:(CGPoint)p withPlayer:(PLPlayerType)pType
 {
-    CCLOG(@"Add sprite %0.2f x %02.f",p.x,p.y);
-	// Define the dynamic body.
-	//Set up a 1m squared box in the physics world
-	b2BodyDef bodyDef;
-    bodyDef.angularDamping = 0.5f;
-    bodyDef.linearDamping = 0.7f;
-	
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
-	b2Body *body = world->CreateBody(&bodyDef);
-	
-	// Define another box shape for our dynamic body.
-    b2CircleShape  dynamicCircle;
-    dynamicCircle.m_radius = 12.0/PTM_RATIO;
-    
-    //b2PolygonShape dynamicCircle;
-    //dynamicCircle.SetAsBox(0.5, 0.5);
-	// Define the dynamic body fixture.
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &dynamicCircle;
-	
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.5f;
-    fixtureDef.restitution = 1.0f;
-    
-	body->CreateFixture(&fixtureDef);
-    
-    NSInteger index = arc4random()%4;
-    body->SetUserData([self.playerArray objectAtIndex:index]);
-    NSString *spriteFrameName = [NSString stringWithFormat:@"ball_%d.png", index];
-    
-    CCPhysicsSprite *sprite = [CCPhysicsSprite spriteWithSpriteFrameName:spriteFrameName];
-	
-	[sprite setPTMRatio:PTM_RATIO];
-	[sprite setB2Body:body];
-	[sprite setPosition: ccp( p.x, p.y)];
-    
+    b2Body *body = [self CreateBodyAtPosition:p];
+    PLBallSprite *sprite = [PLBallSprite BallSpriteWithPlayer:[self.playerArray objectAtIndex:pType] withBody:body];
+    [ballBatchNode addChild:sprite];
     return sprite;
-}
-
--(void)addNewSpriteAtPosition:(CGPoint)p withForce:(b2Vec2)force
-{
-    CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
-    
-    b2Body *body = [self CreateBodyAtPosition:p];
-    NSInteger index = arc4random()%4;
-    PLBallSprite *sprite = [PLBallSprite BallSpriteWithPlayer:[self.playerArray objectAtIndex:index] withBody:body];
-    sprite.mIsCurrent = YES;
-    [parent addChild:sprite];
-    
-    body->ApplyLinearImpulse(force,body->GetPosition());
-}
-
--(void) addNewSpriteAtPosition:(CGPoint)p
-{
-    CCNode *parent = [_panZoomLayer getChildByTag:kTagParentNode];
-
-    b2Body *body = [self CreateBodyAtPosition:p];
-    NSInteger index = arc4random()%4;
-    PLBallSprite *sprite = [PLBallSprite BallSpriteWithPlayer:[self.playerArray objectAtIndex:index] withBody:body];
-    [parent addChild:sprite];
 }
 
 -(void) update: (ccTime) dt
@@ -400,6 +374,10 @@
 	//of the simulation, however, we are using a variable time step here.
 	//You need to make an informed choice, the following URL is useful
 	//http://gafferongames.com/game-physics/fix-your-timestep/
+    
+    if (self.gameStatus == PLGameStatusGameOver) {
+        return;
+    }
 	
 	int32 velocityIterations = 8;
 	int32 positionIterations = 1;
@@ -438,11 +416,22 @@
         [ball runAction:seq];
     }
     
-    if (haveAwakeBody) {
-//        NSLog(@"Have Awake Body!");
+    if (self.gameStatus == PLGameStatusReadyToLanch)
+    {
+        if (haveAwakeBody) {
+            self.gameStatus = PLGameStatusLanched;
+        }
+    }
+    else
+    {
+        if (!haveAwakeBody) {
+            self.gameStatus = PLGameStatusReadyToLanch;
+            [self NextPlayer];
+        }
     }
     
-    lanchCycle.mLanchAble = !haveAwakeBody;
+    lanchCycle.mLanchAble = self.gameStatus == PLGameStatusReadyToLanch;
+    
 	
 	// Instruct the world to perform a single step of simulation. It is
 	// generally best to keep the time step and iterations fixed.
@@ -518,6 +507,31 @@
     
 }
 
+-(void)setCurPlayerIndex:(PLPlayerType)curPlayerIndex
+{
+    _curPlayerIndex = curPlayerIndex;
+    lanchCycle.mPlayerType = _curPlayerIndex;
+}
 
+-(void)NextPlayer
+{
+    NSInteger ret = -1;
+    for (int i = 1; i <= self.playerArray.count; i++) {
+        NSInteger index = (self.curPlayerIndex + i)%self.playerArray.count;
+        PLPlayer *player = [self.playerArray objectAtIndex:index];
+        if (player.mBallCount > 0) {
+            ret = index;
+            break;
+        }
+    }
+    
+    if (ret >= 0 && ret < self.playerArray.count) {
+        self.curPlayerIndex = (PLPlayerType)ret;
+    }
+    else
+    {
+        self.gameStatus = PLGameStatusGameOver;
+    }
+}
 
 @end

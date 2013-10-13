@@ -21,9 +21,9 @@
     self = [super init];
     if (self) {
         self.contentSize = sprite.contentSize;
-        mSprite = sprite;
-        mSprite.position = centerOfSize(self.contentSize);
-        [self addChild:mSprite];
+        self.mSprite = sprite;
+        self.mSprite.position = centerOfSize(self.contentSize);
+        [self addChild:self.mSprite];
     }
     return self;
 }
@@ -90,5 +90,11 @@
 	mTouchInProgress = NO;
 }
 
+-(void)dealloc
+{
+    self.mSprite = nil;
+    
+    [super dealloc];
+}
 
 @end

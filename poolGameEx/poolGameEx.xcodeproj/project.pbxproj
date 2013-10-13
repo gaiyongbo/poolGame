@@ -200,6 +200,9 @@
 		FB0C05911809393E00B50DE6 /* cycle.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0C05901809393E00B50DE6 /* cycle.png */; };
 		FB0C059418093C7100B50DE6 /* PLLanchCycleSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.m */; };
 		FB0C059618093E1D00B50DE6 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0C059518093E1D00B50DE6 /* arrow.png */; };
+		FB0C0599180A86F900B50DE6 /* PLScoreBoardLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB0C0598180A86F900B50DE6 /* PLScoreBoardLayer.mm */; };
+		FB0C059B180A8BF500B50DE6 /* hitInMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB0C059A180A8BF500B50DE6 /* hitInMap.plist */; };
+		FB0C059D180A8CB000B50DE6 /* aeffect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB0C059C180A8CB000B50DE6 /* aeffect.mp3 */; };
 		FB89B2781808DE580040D4FA /* ENDragableSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2751808DE580040D4FA /* ENDragableSprite.m */; };
 		FB89B2791808DE580040D4FA /* ENTouchableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2771808DE580040D4FA /* ENTouchableNode.m */; };
 		FB89B27D1808E0960040D4FA /* ball.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB89B27B1808E0960040D4FA /* ball.plist */; };
@@ -603,6 +606,10 @@
 		FB0C059218093C7100B50DE6 /* PLLanchCycleSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLLanchCycleSprite.h; sourceTree = "<group>"; };
 		FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLLanchCycleSprite.m; sourceTree = "<group>"; };
 		FB0C059518093E1D00B50DE6 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = Resources/arrow.png; sourceTree = "<group>"; };
+		FB0C0597180A86F900B50DE6 /* PLScoreBoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLScoreBoardLayer.h; sourceTree = "<group>"; };
+		FB0C0598180A86F900B50DE6 /* PLScoreBoardLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLScoreBoardLayer.mm; sourceTree = "<group>"; };
+		FB0C059A180A8BF500B50DE6 /* hitInMap.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = hitInMap.plist; path = Resources/hitInMap.plist; sourceTree = "<group>"; };
+		FB0C059C180A8CB000B50DE6 /* aeffect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = aeffect.mp3; path = Resources/aeffect.mp3; sourceTree = "<group>"; };
 		FB89B2741808DE580040D4FA /* ENDragableSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENDragableSprite.h; sourceTree = "<group>"; };
 		FB89B2751808DE580040D4FA /* ENDragableSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENDragableSprite.m; sourceTree = "<group>"; };
 		FB89B2761808DE580040D4FA /* ENTouchableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTouchableNode.h; sourceTree = "<group>"; };
@@ -675,8 +682,6 @@
 		9201AD3218053FF500E9D540 /* poolGameEx */ = {
 			isa = PBXGroup;
 			children = (
-				92D87FF11807ED7A00CA1811 /* PLContactListener.h */,
-				92FF8F0B1809250800B0CD2A /* PLContactListener.mm */,
 				9201AF5618053FF800E9D540 /* AppDelegate.h */,
 				9201AF5718053FF800E9D540 /* AppDelegate.mm */,
 				9201AF5F18053FF800E9D540 /* GLES-Render.h */,
@@ -688,12 +693,16 @@
 				9201AD4B18053FF500E9D540 /* libs */,
 				FB89B27F180911D80040D4FA /* PLBallSprite.h */,
 				FB89B280180911D80040D4FA /* PLBallSprite.mm */,
+				92D87FF11807ED7A00CA1811 /* PLContactListener.h */,
+				92FF8F0B1809250800B0CD2A /* PLContactListener.mm */,
+				92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */,
+				92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */,
 				FB0C059218093C7100B50DE6 /* PLLanchCycleSprite.h */,
 				FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.m */,
 				FB89B282180912C50040D4FA /* PLPlayer.h */,
 				FB89B283180912C50040D4FA /* PLPlayer.m */,
-				92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */,
-				92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */,
+				FB0C0597180A86F900B50DE6 /* PLScoreBoardLayer.h */,
+				FB0C0598180A86F900B50DE6 /* PLScoreBoardLayer.mm */,
 				9201AD3318053FF500E9D540 /* Resources */,
 				9201AF5218053FF800E9D540 /* Supporting Files */,
 			);
@@ -703,6 +712,8 @@
 		9201AD3318053FF500E9D540 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FB0C059C180A8CB000B50DE6 /* aeffect.mp3 */,
+				FB0C059A180A8BF500B50DE6 /* hitInMap.plist */,
 				FB0C059518093E1D00B50DE6 /* arrow.png */,
 				FB0C05901809393E00B50DE6 /* cycle.png */,
 				FB89B27B1808E0960040D4FA /* ball.plist */,
@@ -1333,6 +1344,7 @@
 			files = (
 				FB0C05911809393E00B50DE6 /* cycle.png in Resources */,
 				FB0C059618093E1D00B50DE6 /* arrow.png in Resources */,
+				FB0C059B180A8BF500B50DE6 /* hitInMap.plist in Resources */,
 				9201AD4518053FF500E9D540 /* Icon.png in Resources */,
 				9201AFF518054B3400E9D540 /* background.png in Resources */,
 				9201AEA318053FF700E9D540 /* ChangeLog in Resources */,
@@ -1354,6 +1366,7 @@
 				92D87FF81807EFF800CA1811 /* 球2.png in Resources */,
 				9201AD4718053FF500E9D540 /* Icon@2x.png in Resources */,
 				FB89B27D1808E0960040D4FA /* ball.plist in Resources */,
+				FB0C059D180A8CB000B50DE6 /* aeffect.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1528,6 +1541,7 @@
 				9201AD9B18053FF600E9D540 /* CCGLProgram.m in Sources */,
 				9201AE8B18053FF700E9D540 /* SimpleAudioEngine.m in Sources */,
 				9201AE3D18053FF700E9D540 /* CCTouchDispatcher.m in Sources */,
+				FB0C0599180A86F900B50DE6 /* PLScoreBoardLayer.mm in Sources */,
 				9201AF5518053FF800E9D540 /* main.m in Sources */,
 				9201ADC018053FF600E9D540 /* CCNode.m in Sources */,
 			);

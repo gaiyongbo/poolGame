@@ -18,6 +18,8 @@
 +(id)BallSpriteWithPlayer:(PLPlayer*)player withBody:(b2Body*)body;
 -(id)InitWithPlayer:(PLPlayer*)player withBody:(b2Body*)body;
 
+-(void)Impulse:(CGPoint)force;
+
 @property(nonatomic,assign)PLPlayer     *mPlayer;
 @property(nonatomic)BOOL                mIsCurrent;
 @end

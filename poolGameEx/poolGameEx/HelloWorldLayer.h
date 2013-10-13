@@ -17,11 +17,19 @@
 #import "PLContactListener.h"
 #import "PLLanchCycleSprite.h"
 
+#define CURGAMELAYER ([HelloWorldLayer CurGameLayer])
+
 //Pixel to metres ratio. Box2D uses metres as the unit for measurement.
 //This ratio defines how many pixels correspond to 1 Box2D "metre"
 //Box2D is optimized for objects of 1x1 metre therefore it makes sense
 //to define the ratio so that your most common object type is 1x1 metre.
 
+typedef enum
+{
+    PLGameStatusReadyToLanch = 0,
+    PLGameStatusLanched,
+    PLGameStatusGameOver
+}PLGameStatus;
 
 // HelloWorldLayer
 @interface HelloWorldLayer : CCLayer <PLLanchCycleDelegate,GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate,CCLayerPanZoomClickDelegate>
@@ -33,10 +41,13 @@
     PLContactListener *_contactListener;
     CCLayerColor    *playerGround;
     PLLanchCycleSprite  *lanchCycle;
+    CCSpriteBatchNode   *ballBatchNode;
 }
 @property(nonatomic,retain)NSMutableArray           *playerArray;
+@property(nonatomic)PLPlayerType                       curPlayerIndex;
+@property(nonatomic)PLGameStatus                            gameStatus;
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;
-
++(HelloWorldLayer*)CurGameLayer;
 @end

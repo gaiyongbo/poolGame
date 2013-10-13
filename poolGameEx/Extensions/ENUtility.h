@@ -20,3 +20,4 @@
 
 #define NSStringFromInteger(integer) [NSString stringWithFormat:@"%d", integer]
 
+#define MF_FONT             @"Marker Felt"

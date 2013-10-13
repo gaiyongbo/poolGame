@@ -17,6 +17,8 @@
 
 #define PTM_RATIO 32
 #define FRAME_SIZE 200
+#define COUNT_PER_ROW   3
+#define COUNT_PER_COL   4
 #define FRAME_X_POS 100
 
 enum PLnodeTags{

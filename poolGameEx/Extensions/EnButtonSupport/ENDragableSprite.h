@@ -22,7 +22,6 @@
 
 @interface ENDragableSprite : ENTouchableNode
 {
-    CCSprite*                       mSprite;
 	BOOL                            mTouchInProgress;
 	bool                            mScaleOnPush;
     
@@ -35,6 +34,7 @@
     CGFloat                         mOriginScale;
 }
 
+@property(nonatomic,retain)CCSprite*                       mSprite;
 @property(nonatomic,assign)id<DragableDelegate>            mDelegate;
 
 +(id)DragableSpriteWithSprite:(CCSprite*)sprite;

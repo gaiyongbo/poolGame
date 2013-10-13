@@ -8,10 +8,11 @@
 
 #import "CCSprite.h"
 #import "ENDragableSprite.h"
+#import "PLPlayer.h"
 
 @protocol PLLanchCycleDelegate <NSObject>
 
--(void)LanchWithForce:(CGPoint)force withPt:(CGPoint)pt;
+-(void)LanchWithForce:(CGPoint)force withPt:(CGPoint)pt withPlayerType:(PLPlayerType)pType;
 
 @end
 
@@ -23,6 +24,7 @@
 
 @property(nonatomic,assign)id<PLLanchCycleDelegate> mDelegate;
 @property(nonatomic)BOOL mLanchAble;
+@property(nonatomic)PLPlayerType mPlayerType;
 +(id)LanchCycleSprite;
 -(id)InitLanchCycleSprite;
 @end

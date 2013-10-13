@@ -8,7 +8,7 @@
 
 #import "PLLanchCycleSprite.h"
 
-#define PL_LANCH_FORCE_DELTA        -0.07
+#define PL_LANCH_FORCE_DELTA        -0.2
 @implementation PLLanchCycleSprite
 
 +(id)LanchCycleSprite
@@ -73,10 +73,10 @@
     CGPoint ballPt = mLanchBall.position;
     CGPoint center = centerOfSize(self.contentSize);
     CGPoint tmpPt = ccpSub(ballPt, center);
-    if (self.mDelegate && [self.mDelegate respondsToSelector:@selector(LanchWithForce:withPt:)]) {
+    if (self.mDelegate && [self.mDelegate respondsToSelector:@selector(LanchWithForce:withPt:withPlayerType:)]) {
         NSLog(@"%@[[%@", NSStringFromCGPoint(self.position), NSStringFromCGPoint(mLanchBall.position));
         CGPoint lanchPt = ccpAdd(self.position, tmpPt);
-        [self.mDelegate LanchWithForce:ccp(tmpPt.x*PL_LANCH_FORCE_DELTA, tmpPt.y*PL_LANCH_FORCE_DELTA) withPt:lanchPt];
+        [self.mDelegate LanchWithForce:ccp(tmpPt.x*PL_LANCH_FORCE_DELTA, tmpPt.y*PL_LANCH_FORCE_DELTA) withPt:lanchPt withPlayerType:self.mPlayerType];
     }
 }
 
@@ -116,6 +116,12 @@
     mArrow.visible = mLanchBall.visible = _mLanchAble;
     mArrow.rotation = 0;
     mArrow.scaleX = 1;
+}
+
+-(void)setMPlayerType:(PLPlayerType)mPlayerType
+{
+    _mPlayerType = mPlayerType;
+    [mLanchBall.mSprite setDisplayFrame:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"ball_%d.png", _mPlayerType]]];
 }
 
 @end

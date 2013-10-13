@@ -37,6 +37,13 @@
 
 }
 
+-(void)Impulse:(CGPoint)force
+{
+    self.mIsCurrent = YES;
+    b2Body *body = [self b2Body];
+    body->ApplyLinearImpulse(b2Vec2(force.x, force.y),body->GetPosition());
+}
+
 -(void)dealloc
 {
     self.mPlayer = nil;

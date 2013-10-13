@@ -20,10 +20,12 @@ void PLContactListener::BeginContact(b2Contact* contact)
     if (spriteA.mIsCurrent && spriteB) {
         //得分
         spriteA.mPlayer.mScore += 1;
-        NSLog(@"get 1 point");
+        CGPoint worldPt = [spriteA convertToWorldSpace:centerOfSize(spriteA.contentSize)];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"QQQ" object:NSStringFromCGPoint(worldPt)];
     } else if (spriteB.mIsCurrent && spriteA) {
-        NSLog(@"get 1 point");
         spriteB.mPlayer.mScore += 1;
+        CGPoint worldPt = [spriteA convertToWorldSpace:centerOfSize(spriteA.contentSize)];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"QQQ" object:NSStringFromCGPoint(worldPt)];
     }
 }
 
