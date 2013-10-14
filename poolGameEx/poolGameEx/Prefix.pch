@@ -21,6 +21,11 @@
 #define COUNT_PER_COL   4
 #define FRAME_X_POS 100
 
+
+#define KNOCKOUT_NOTIFY            @"KNOCKOUT_NOTIFY"
+#define COLLISION_NOTIFY            @"COLLISION_NOTIFY"
+#define SELECT_BALL_NOTIFY          @"SELECT_BALL_NOTIFY"
+
 enum PLnodeTags{
 	kTagParentNode = 0,
     kBackgroundTag,

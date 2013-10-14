@@ -203,12 +203,14 @@
 		FB0C0599180A86F900B50DE6 /* PLScoreBoardLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB0C0598180A86F900B50DE6 /* PLScoreBoardLayer.mm */; };
 		FB0C059B180A8BF500B50DE6 /* hitInMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB0C059A180A8BF500B50DE6 /* hitInMap.plist */; };
 		FB0C059D180A8CB000B50DE6 /* aeffect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB0C059C180A8CB000B50DE6 /* aeffect.mp3 */; };
+		FB0C05A3180BA40500B50DE6 /* PLRoundCtrl.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB0C05A2180BA40500B50DE6 /* PLRoundCtrl.mm */; };
 		FB89B2781808DE580040D4FA /* ENDragableSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2751808DE580040D4FA /* ENDragableSprite.m */; };
 		FB89B2791808DE580040D4FA /* ENTouchableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B2771808DE580040D4FA /* ENTouchableNode.m */; };
 		FB89B27D1808E0960040D4FA /* ball.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB89B27B1808E0960040D4FA /* ball.plist */; };
 		FB89B27E1808E0960040D4FA /* ball.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = FB89B27C1808E0960040D4FA /* ball.pvr.ccz */; };
 		FB89B281180911D80040D4FA /* PLBallSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB89B280180911D80040D4FA /* PLBallSprite.mm */; };
 		FB89B284180912C50040D4FA /* PLPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FB89B283180912C50040D4FA /* PLPlayer.m */; };
+		FBE4A333180BC84800D2DE14 /* ENButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE4A332180BC84800D2DE14 /* ENButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -610,6 +612,8 @@
 		FB0C0598180A86F900B50DE6 /* PLScoreBoardLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLScoreBoardLayer.mm; sourceTree = "<group>"; };
 		FB0C059A180A8BF500B50DE6 /* hitInMap.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = hitInMap.plist; path = Resources/hitInMap.plist; sourceTree = "<group>"; };
 		FB0C059C180A8CB000B50DE6 /* aeffect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = aeffect.mp3; path = Resources/aeffect.mp3; sourceTree = "<group>"; };
+		FB0C05A1180BA40500B50DE6 /* PLRoundCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLRoundCtrl.h; sourceTree = "<group>"; };
+		FB0C05A2180BA40500B50DE6 /* PLRoundCtrl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLRoundCtrl.mm; sourceTree = "<group>"; };
 		FB89B2741808DE580040D4FA /* ENDragableSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENDragableSprite.h; sourceTree = "<group>"; };
 		FB89B2751808DE580040D4FA /* ENDragableSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENDragableSprite.m; sourceTree = "<group>"; };
 		FB89B2761808DE580040D4FA /* ENTouchableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTouchableNode.h; sourceTree = "<group>"; };
@@ -621,6 +625,8 @@
 		FB89B280180911D80040D4FA /* PLBallSprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLBallSprite.mm; sourceTree = "<group>"; };
 		FB89B282180912C50040D4FA /* PLPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlayer.h; sourceTree = "<group>"; };
 		FB89B283180912C50040D4FA /* PLPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlayer.m; sourceTree = "<group>"; };
+		FBE4A331180BC84800D2DE14 /* ENButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENButton.h; sourceTree = "<group>"; };
+		FBE4A332180BC84800D2DE14 /* ENButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -693,6 +699,8 @@
 				9201AD4B18053FF500E9D540 /* libs */,
 				FB89B27F180911D80040D4FA /* PLBallSprite.h */,
 				FB89B280180911D80040D4FA /* PLBallSprite.mm */,
+				FB0C05A1180BA40500B50DE6 /* PLRoundCtrl.h */,
+				FB0C05A2180BA40500B50DE6 /* PLRoundCtrl.mm */,
 				92D87FF11807ED7A00CA1811 /* PLContactListener.h */,
 				92FF8F0B1809250800B0CD2A /* PLContactListener.mm */,
 				92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */,
@@ -1287,6 +1295,8 @@
 				FB89B2751808DE580040D4FA /* ENDragableSprite.m */,
 				FB89B2761808DE580040D4FA /* ENTouchableNode.h */,
 				FB89B2771808DE580040D4FA /* ENTouchableNode.m */,
+				FBE4A331180BC84800D2DE14 /* ENButton.h */,
+				FBE4A332180BC84800D2DE14 /* ENButton.m */,
 			);
 			path = EnButtonSupport;
 			sourceTree = "<group>";
@@ -1385,6 +1395,7 @@
 				9201AEDB18053FF700E9D540 /* b2ChainShape.cpp in Sources */,
 				9201AE1218053FF600E9D540 /* CCTileMapAtlas.m in Sources */,
 				9201AE1518053FF600E9D540 /* CCTMXLayer.m in Sources */,
+				FBE4A333180BC84800D2DE14 /* ENButton.m in Sources */,
 				9201AECA18053FF700E9D540 /* b2CollideEdge.cpp in Sources */,
 				9201AEDE18053FF700E9D540 /* b2CircleShape.cpp in Sources */,
 				9201AEAD18053FF700E9D540 /* mat4.c in Sources */,
@@ -1426,6 +1437,7 @@
 				9201ADC618053FF600E9D540 /* CCParticleBatchNode.m in Sources */,
 				9201AEE118053FF700E9D540 /* b2EdgeShape.cpp in Sources */,
 				9201AF0618053FF800E9D540 /* b2Island.cpp in Sources */,
+				FB0C05A3180BA40500B50DE6 /* PLRoundCtrl.mm in Sources */,
 				9201AE0918053FF600E9D540 /* CCTextureAtlas.m in Sources */,
 				9201AEB718053FF700E9D540 /* utility.c in Sources */,
 				9201AE6318053FF700E9D540 /* CCVertex.m in Sources */,

@@ -19,5 +19,4 @@ typedef enum
 @property(nonatomic)PLPlayerType            mType;
 @property(nonatomic)NSInteger               mBallCount;
 @property(nonatomic)NSInteger               mScore;
-@property(nonatomic,retain)NSMutableArray   *mBalls;
 @end

@@ -9,10 +9,17 @@
 #import "CCPhysicsSprite.h"
 #import "PLPlayer.h"
 #import "Box2D.h"
+#import "ENButton.h"
+
+typedef enum
+{
+    PLBallStatusIn = 0,
+    PLBallStatusMoving,
+    PLBallStatusOut
+}PLBallStatus;
 
 @interface PLBallSprite : CCPhysicsSprite
 {
-    
 }
 
 +(id)BallSpriteWithPlayer:(PLPlayer*)player withBody:(b2Body*)body;
@@ -20,6 +27,13 @@
 
 -(void)Impulse:(CGPoint)force;
 
+-(void)SetSelectable;
+
+-(void)RemoveWithAddScore:(BOOL)flag;
+
 @property(nonatomic,assign)PLPlayer     *mPlayer;
 @property(nonatomic)BOOL                mIsCurrent;
+@property(nonatomic)PLBallStatus        mStatus;
+@property(nonatomic)PLBallStatus        mPrevStatus;
+@property(nonatomic)BOOL                mIsKnockout;
 @end

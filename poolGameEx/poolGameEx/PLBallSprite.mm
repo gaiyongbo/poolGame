@@ -7,6 +7,8 @@
 //
 
 #import "PLBallSprite.h"
+#import "HelloWorldLayer.h"
+#import "ENButton.h"
 
 @implementation PLBallSprite
 
@@ -24,24 +26,99 @@
     if (self) {
         self.mIsCurrent = NO;
         self.mPlayer = player;
+        self.mPrevStatus = PLBallStatusIn;
         
         [self setPTMRatio:PTM_RATIO];
         [self setB2Body:body];
         [self setPosition: ccp(body->GetPosition().x * PTM_RATIO, body->GetPosition().y * PTM_RATIO)];
         body->SetUserData(self);
         
-        [self.mPlayer.mBalls addObject:self];
+        [CURGAMELAYER.ballArray addObject:self];
+        
+        CCSprite *tmp = [CCSprite node];
+        tmp.contentSize = self.contentSize;
+        ENButton *btn = [ENButton ButtonWithTouchablePortion:tmp target:self selector:@selector(BtnPressed)];
+        btn.position = ccp(0, 0);
+        btn.anchorPoint = ccp(0, 0);
+        [self addChild:btn];
     }
 
     return self;
 
 }
 
+-(void)BtnPressed
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:SELECT_BALL_NOTIFY object:self];
+}
+
+-(void)onEnter
+{
+    [super onEnter];
+    
+    [self scheduleUpdate];
+}
+
+-(void)onExit
+{
+    [super onExit];
+    
+    [self unscheduleUpdate];
+}
+
+-(void)update:(ccTime)delta
+{
+    b2Vec2 velo = self.b2Body->GetLinearVelocity();
+    if (ABS(velo.x) < 0.1 && ABS(velo.y) < 0.1) {
+        self.b2Body->SetAwake(NO);
+    }
+    
+    if (self.b2Body->IsAwake()) {
+        self.mStatus = PLBallStatusMoving;
+    }
+    else if ([CURGAMELAYER IsBallInPlayGround:self])
+    {
+        self.mStatus = PLBallStatusIn;
+    }
+    else
+    {
+        self.mStatus = PLBallStatusOut;
+    }
+
+    if (self.mStatus != PLBallStatusMoving) {
+        self.mIsCurrent = NO;
+    }
+}
+
+-(BOOL)mIsKnockout
+{
+    _mIsKnockout = (self.mStatus == PLBallStatusOut && self.mPrevStatus == PLBallStatusIn)
+                    || (self.mStatus == PLBallStatusOut && self.mPlayer.mType == CURGAMELAYER.roundCtrl.mCurPlayerIndex);
+    return _mIsKnockout;
+}
+
 -(void)Impulse:(CGPoint)force
 {
+    self.mPrevStatus = PLBallStatusOut;
     self.mIsCurrent = YES;
     b2Body *body = [self b2Body];
     body->ApplyLinearImpulse(b2Vec2(force.x, force.y),body->GetPosition());
+}
+
+-(void)SetSelectable
+{
+    self.mPlayer = [CURGAMELAYER.playerArray objectAtIndex:CURGAMELAYER.roundCtrl.mCurPlayerIndex];
+    [self setDisplayFrame:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"ball_%d.png", self.mPlayer.mType]]];
+    CCRepeatForever *action = [CCRepeatForever actionWithAction:[CCSequence actionOne:[CCScaleTo actionWithDuration:0.5 scale:0.6] two:[CCScaleTo actionWithDuration:0.5 scale:1]]];
+    [self runAction:action];
+}
+
+-(void)RemoveWithAddScore:(BOOL)flag
+{
+    if (flag) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOCKOUT_NOTIFY object:self];
+    }
+    [CURGAMELAYER DestroyBall:self];
 }
 
 -(void)dealloc

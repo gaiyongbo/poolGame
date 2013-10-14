@@ -10,7 +10,7 @@
 #import "CCNode.h"
 
 
-@interface ENTouchableNode : CCNode<CCTouchOneByOneDelegate>
+@interface ENTouchableNode : CCSprite<CCTouchOneByOneDelegate>
 {
     BOOL                            mRegisteredWithDispatcher;
 }

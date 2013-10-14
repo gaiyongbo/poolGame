@@ -17,15 +17,13 @@ void PLContactListener::BeginContact(b2Contact* contact)
     PLBallSprite* spriteA = (PLBallSprite*)bodyA->GetUserData();
     PLBallSprite* spriteB = (PLBallSprite*)bodyB->GetUserData();
     
-    if (spriteA.mIsCurrent && spriteB) {
-        //得分
-        spriteA.mPlayer.mScore += 1;
-        CGPoint worldPt = [spriteA convertToWorldSpace:centerOfSize(spriteA.contentSize)];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"QQQ" object:NSStringFromCGPoint(worldPt)];
-    } else if (spriteB.mIsCurrent && spriteA) {
-        spriteB.mPlayer.mScore += 1;
-        CGPoint worldPt = [spriteA convertToWorldSpace:centerOfSize(spriteA.contentSize)];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"QQQ" object:NSStringFromCGPoint(worldPt)];
+    if (spriteA.mIsCurrent && spriteB)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:COLLISION_NOTIFY object:spriteB];
+    }
+    else if (spriteB.mIsCurrent && spriteA)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:COLLISION_NOTIFY object:spriteA];
     }
 }
 

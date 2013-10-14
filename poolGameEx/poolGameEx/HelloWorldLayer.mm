@@ -9,23 +9,15 @@
 // Import the interfaces
 #import "HelloWorldLayer.h"
 
-// Not included in "cocos2d.h"
 #import "CCPhysicsSprite.h"
-
-// Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
-
 #import "PLPlayer.h"
-#import "PLBallSprite.h"
 #import "PLScoreBoardLayer.h"
+
+#define kLanchCycleDefaultPt    ccp(_panZoomLayer.contentSize.width - 130, _panZoomLayer.contentSize.height/2)
 
 static HelloWorldLayer *_curGameLayer = nil;
 #pragma mark - HelloWorldLayer
-
-@interface HelloWorldLayer()
--(void) initPhysics;
--(void) createMenu;
-@end
 
 @implementation HelloWorldLayer
 
@@ -51,7 +43,9 @@ static HelloWorldLayer *_curGameLayer = nil;
 
 -(id) init
 {
-	if( (self=[super init])) {        
+	if( (self=[super init])) {
+        _curGameLayer = self;
+
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"ball.plist"];
 
         //创建可滚动的层
@@ -104,7 +98,6 @@ static HelloWorldLayer *_curGameLayer = nil;
 
 
         [self addChild:menu z:5];
-        _curGameLayer = self;
 	}
 	return self;
 }
@@ -126,7 +119,7 @@ static HelloWorldLayer *_curGameLayer = nil;
     
     lanchCycle = [PLLanchCycleSprite LanchCycleSprite];
     lanchCycle.mDelegate = self;
-    lanchCycle.position = ccp(_panZoomLayer.contentSize.width - 130, _panZoomLayer.contentSize.height/2);
+    lanchCycle.position = kLanchCycleDefaultPt;
     [_panZoomLayer addChild:lanchCycle z:0];
     
     [self startGame];
@@ -135,6 +128,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 -(void)startGame
 {
     self.playerArray = [NSMutableArray arrayWithCapacity:4];
+    self.ballArray = [NSMutableArray arrayWithCapacity:4];
     for (int i = 0; i < 4; i++) {
         PLPlayer *player = [[[PLPlayer alloc] init] autorelease];
         player.mType = (PLPlayerType)i;
@@ -169,17 +163,14 @@ static HelloWorldLayer *_curGameLayer = nil;
         }
     }
     
-    self.gameStatus = PLGameStatusReadyToLanch;
+    self.roundCtrl = [[[PLRoundCtrl alloc] init] autorelease];
 }
 
 -(void)LanchWithForce:(CGPoint)force withPt:(CGPoint)pt withPlayerType:(PLPlayerType)pType
 {
-//    CGFloat xForce = force.x;
-//    CGFloat yForce = force.y;
     PLPlayer *player = [self.playerArray objectAtIndex:pType];
     player.mBallCount -= 1;
     [[self addNewSpriteAtPosition:pt withPlayer:pType] Impulse:force];
-//    withForce:b2Vec2(xForce,yForce)
 }
 
 -(void) dealloc
@@ -365,6 +356,7 @@ static HelloWorldLayer *_curGameLayer = nil;
     b2Body *body = [self CreateBodyAtPosition:p];
     PLBallSprite *sprite = [PLBallSprite BallSpriteWithPlayer:[self.playerArray objectAtIndex:pType] withBody:body];
     [ballBatchNode addChild:sprite];
+//    [self.ballArray addObject:sprite];
     return sprite;
 }
 
@@ -374,14 +366,16 @@ static HelloWorldLayer *_curGameLayer = nil;
 	//of the simulation, however, we are using a variable time step here.
 	//You need to make an informed choice, the following URL is useful
 	//http://gafferongames.com/game-physics/fix-your-timestep/
-    
-    if (self.gameStatus == PLGameStatusGameOver) {
-        return;
-    }
 	
 	int32 velocityIterations = 8;
 	int32 positionIterations = 1;
     
+    [self.roundCtrl Update];
+    
+    
+    
+    
+    /*
     NSMutableArray *needRemoveBalls = [NSMutableArray array];
 
     BOOL haveAwakeBody = NO;
@@ -431,7 +425,7 @@ static HelloWorldLayer *_curGameLayer = nil;
     }
     
     lanchCycle.mLanchAble = self.gameStatus == PLGameStatusReadyToLanch;
-    
+    */
 	
 	// Instruct the world to perform a single step of simulation. It is
 	// generally best to keep the time step and iterations fixed.
@@ -440,17 +434,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	//Add a new body/atlas sprite at the touched location
-//	for( UITouch *touch in touches ) {
-////		CGPoint location = [touch locationInView: [touch view]];
-//		
-////		location = [[CCDirector sharedDirector] convertToGL: location];
-//        CGPoint location = [_panZoomLayer convertTouchToNodeSpace:touch];
-//		
-//        CGFloat xForce = -(arc4random()%50 * 0.1 + 5);
-//        CGFloat yForce = 5 - (arc4random()%100 * 0.1);
-//		[self addNewSpriteAtPosition:location withForce:b2Vec2(xForce,yForce)];
-//	}
+
 }
 
 #pragma mark GameKit delegate
@@ -507,31 +491,31 @@ static HelloWorldLayer *_curGameLayer = nil;
     
 }
 
--(void)setCurPlayerIndex:(PLPlayerType)curPlayerIndex
+-(b2World*)CurWorld
 {
-    _curPlayerIndex = curPlayerIndex;
-    lanchCycle.mPlayerType = _curPlayerIndex;
+    return world;
 }
 
--(void)NextPlayer
+-(void)DestroyBall:(PLBallSprite *)ball
 {
-    NSInteger ret = -1;
-    for (int i = 1; i <= self.playerArray.count; i++) {
-        NSInteger index = (self.curPlayerIndex + i)%self.playerArray.count;
-        PLPlayer *player = [self.playerArray objectAtIndex:index];
-        if (player.mBallCount > 0) {
-            ret = index;
-            break;
-        }
+    world->DestroyBody(ball.b2Body);
+    [ball removeFromParentAndCleanup:YES];
+    [self.ballArray removeObject:ball];
+}
+
+-(void)SetLanchCycleWithPType:(PLPlayerType)pType withPt:(CGPoint)pt
+{
+    if (CGPointEqualToPoint(pt, CGPointZero)) {
+        pt = kLanchCycleDefaultPt;
     }
-    
-    if (ret >= 0 && ret < self.playerArray.count) {
-        self.curPlayerIndex = (PLPlayerType)ret;
-    }
-    else
-    {
-        self.gameStatus = PLGameStatusGameOver;
-    }
+    lanchCycle.mPlayerType = pType;
+    lanchCycle.position = pt;
+    lanchCycle.mLanchAble = YES;
+}
+
+-(BOOL)IsBallInPlayGround:(PLBallSprite *)ball
+{
+    return CGRectIntersectsRect(playerGround.boundingBox, ball.boundingBox);
 }
 
 @end

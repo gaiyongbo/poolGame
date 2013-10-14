@@ -13,7 +13,6 @@
 {
     self = [super init];
     if (self) {
-        self.mBalls = [NSMutableArray arrayWithCapacity:4];
         self.mBallCount = 5;
     }
     
@@ -22,7 +21,6 @@
 
 -(void)dealloc
 {
-    self.mBalls = nil;
     
     [super dealloc];
 }

@@ -78,6 +78,8 @@
         CGPoint lanchPt = ccpAdd(self.position, tmpPt);
         [self.mDelegate LanchWithForce:ccp(tmpPt.x*PL_LANCH_FORCE_DELTA, tmpPt.y*PL_LANCH_FORCE_DELTA) withPt:lanchPt withPlayerType:self.mPlayerType];
     }
+    
+    self.mLanchAble = NO;
 }
 
 -(void)CheckBallAndArrow
@@ -110,6 +112,7 @@
     }
     
     _mLanchAble = mLanchAble;
+    self.visible = _mLanchAble;
     if (_mLanchAble) {
         mArrow.position = mLanchBall.position = centerOfSize(self.contentSize);
     }

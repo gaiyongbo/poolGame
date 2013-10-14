@@ -16,7 +16,8 @@
 {
     self = [super init];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddScore:) name:@"QQQ" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddScoreForCollision:) name:COLLISION_NOTIFY object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddScoreForKnockout:) name:KNOCKOUT_NOTIFY object:nil];
 
         curPlayerInfoLabel = [CCLabelTTF labelWithString:@"" fontName:MF_FONT fontSize:20];
         curPlayerInfoLabel.anchorPoint = ccp(0.5, 1);
@@ -48,22 +49,24 @@
 -(void)UPdateCurPlayerInfo
 {
     NSString *info = @"";
-    if (CURGAMELAYER.gameStatus != PLGameStatusGameOver) {
-        PLPlayer *curPlayer = [CURGAMELAYER.playerArray objectAtIndex:CURGAMELAYER.curPlayerIndex];
-        info = [NSString stringWithFormat:@"玩家：%d            剩余：%d           得分：%d",
-                CURGAMELAYER.curPlayerIndex,
-                curPlayer.mBallCount,
-                curPlayer.mScore];
-    }
+
+    PLPlayer *curPlayer = [CURGAMELAYER.playerArray objectAtIndex:CURGAMELAYER.roundCtrl.mCurPlayerIndex];
+    info = [NSString stringWithFormat:@"玩家：%d            剩余：%d           得分：%d",
+            CURGAMELAYER.roundCtrl.mCurPlayerIndex,
+            curPlayer.mBallCount,
+            curPlayer.mScore];
     
     curPlayerInfoLabel.string = info;
 }
 
--(void)AddScore:(NSNotification*)notify
+-(void)AddScoreForCollision:(NSNotification*)notify
 {
+    PLBallSprite *targetBall = notify.object;
+    targetBall.mPlayer.mScore += 1;
+    
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"+1" fontName:MF_FONT fontSize:15];
     label.color = ccc3(255, 0, 0);
-    label.position = CGPointFromString(notify.object);
+    label.position = [targetBall convertToWorldSpace:centerOfSize(targetBall.contentSize)];
     [self addChild:label z:3];
     
     CCMoveTo *moveAction = [CCMoveTo actionWithDuration:2 position:ccp(self.contentSize.width/2, self.contentSize.height)];
@@ -82,7 +85,39 @@
     call = [CCCallBlockN actionWithBlock:^(CCNode *node) {
         [node removeFromParentAndCleanup:YES];
     }];
+    
+    [hitParticle runAction:[CCSequence actionOne:delay two:call]];
+    
+    [[SimpleAudioEngine sharedEngine] playEffect:@"aeffect.mp3"];
+}
 
+-(void)AddScoreForKnockout:(NSNotification*)notify
+{
+    PLBallSprite *targetBall = notify.object;
+    targetBall.mPlayer.mScore += 100;
+    
+    CCLabelTTF *label = [CCLabelTTF labelWithString:@"+100" fontName:MF_FONT fontSize:15];
+    label.color = ccc3(255, 0, 0);
+    label.position = [targetBall convertToWorldSpace:centerOfSize(targetBall.contentSize)];
+    [self addChild:label z:3];
+    
+    CCMoveTo *moveAction = [CCMoveTo actionWithDuration:2 position:ccp(self.contentSize.width/2, self.contentSize.height)];
+    CCCallBlockN *call = [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+    }];
+    
+    [label runAction:[CCSequence actionOne:moveAction two:call]];
+    
+    CCParticleSystemQuad *hitParticle = [[CCParticleSystemQuad particleWithFile:@"hitInMap.plist"] retain];
+    hitParticle.positionType = kCCPositionTypeRelative;
+    hitParticle.position = label.position;
+    [self addChild:hitParticle];
+    
+    CCDelayTime *delay = [CCDelayTime actionWithDuration:1];
+    call = [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+    }];
+    
     [hitParticle runAction:[CCSequence actionOne:delay two:call]];
     
     [[SimpleAudioEngine sharedEngine] playEffect:@"aeffect.mp3"];
