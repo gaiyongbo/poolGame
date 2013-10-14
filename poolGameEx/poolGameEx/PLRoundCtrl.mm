@@ -44,9 +44,9 @@
     
     PLBallSprite *outBall = nil;
     for (PLBallSprite *ball in CURGAMELAYER.ballArray) {
+        [ball CheckPrevStatus];
         if (ball.mStatus == PLBallStatusOut && ball.mPlayer.mType == _mCurPlayerIndex) {
             outBall = ball;
-            break;
         }
     }
     
@@ -102,10 +102,10 @@
         haveInnerBall = haveInnerBall || [CURGAMELAYER IsBallInPlayGround:ball];
     }
     
-//    if (!haveInnerBall) {
-//        self.mGameStatus = PLGameStatusGameOver;
-//        return;
-//    }
+    if (!haveInnerBall) {
+        self.mGameStatus = PLGameStatusGameOver;
+        return;
+    }
     
     if (self.mGameStatus == PLGameStatusReadyToLanch)
     {

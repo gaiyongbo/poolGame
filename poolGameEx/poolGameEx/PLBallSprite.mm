@@ -121,6 +121,11 @@
     [CURGAMELAYER DestroyBall:self];
 }
 
+-(void)CheckPrevStatus
+{
+    self.mPrevStatus = [CURGAMELAYER IsBallInPlayGround:self] ? PLBallStatusIn : PLBallStatusOut;
+}
+
 -(void)dealloc
 {
     self.mPlayer = nil;

@@ -31,6 +31,8 @@ typedef enum
 
 -(void)RemoveWithAddScore:(BOOL)flag;
 
+-(void)CheckPrevStatus;
+
 @property(nonatomic,assign)PLPlayer     *mPlayer;
 @property(nonatomic)BOOL                mIsCurrent;
 @property(nonatomic)PLBallStatus        mStatus;

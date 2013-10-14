@@ -180,9 +180,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 	
 	delete m_debugDraw;
 	m_debugDraw = NULL;
-    
-    _curGameLayer = nil;
-    	
+        	
 	[super dealloc];
 }	
 
