@@ -265,6 +265,8 @@ static HelloWorldLayer *_curGameLayer = nil;
 	
 	// Define the ground body.
 	b2BodyDef groundBodyDef;
+    
+    float margin = 48.0/PTM_RATIO;
 	groundBodyDef.position.Set(0, 0); // bottom-left corner
 	
 	// Call the body factory which allocates memory for the ground body
@@ -276,20 +278,22 @@ static HelloWorldLayer *_curGameLayer = nil;
 	b2EdgeShape groundBox;		
 	
 	// bottom
+    
+    
 	
-	groundBox.Set(b2Vec2(0,0), b2Vec2(s.width*SIZE_RATIO/PTM_RATIO,0));
+	groundBox.Set(b2Vec2(0,margin), b2Vec2(s.width*SIZE_RATIO/PTM_RATIO,margin));
 	groundBody->CreateFixture(&groundBox,0);
 	
 	// top
-	groundBox.Set(b2Vec2(0,s.height*SIZE_RATIO/PTM_RATIO), b2Vec2(s.width*SIZE_RATIO/PTM_RATIO,s.height*SIZE_RATIO/PTM_RATIO));
+	groundBox.Set(b2Vec2(0,s.height*SIZE_RATIO/PTM_RATIO -margin), b2Vec2(s.width*SIZE_RATIO/PTM_RATIO,s.height*SIZE_RATIO/PTM_RATIO - margin));
 	groundBody->CreateFixture(&groundBox,0);
 	
 	// left
-	groundBox.Set(b2Vec2(0,s.height*SIZE_RATIO/PTM_RATIO), b2Vec2(0,0));
+	groundBox.Set(b2Vec2(margin,s.height*SIZE_RATIO/PTM_RATIO), b2Vec2(margin,0));
 	groundBody->CreateFixture(&groundBox,0);
 	
 	// right
-	groundBox.Set(b2Vec2(s.width*SIZE_RATIO/PTM_RATIO,s.height*SIZE_RATIO/PTM_RATIO), b2Vec2(s.width*SIZE_RATIO/PTM_RATIO,0));
+	groundBox.Set(b2Vec2(s.width*SIZE_RATIO/PTM_RATIO - margin,s.height*SIZE_RATIO/PTM_RATIO), b2Vec2(s.width*SIZE_RATIO/PTM_RATIO - margin,0));
 	groundBody->CreateFixture(&groundBox,0);
 }
 

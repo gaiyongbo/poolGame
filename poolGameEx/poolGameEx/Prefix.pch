@@ -15,7 +15,7 @@
 #import "cocos2d.h"
 #endif
 
-#define PTM_RATIO 32
+#define PTM_RATIO 32.0
 #define FRAME_SIZE 200
 #define COUNT_PER_ROW   3
 #define COUNT_PER_COL   4
