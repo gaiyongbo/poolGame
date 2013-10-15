@@ -16,7 +16,7 @@
 #import "ENButton.h"
 #import "PLGameAlertLayer.h"
 
-#define kLanchCycleDefaultPt    ccp(_panZoomLayer.contentSize.width - 130, _panZoomLayer.contentSize.height/2)
+#define kLanchCycleDefaultPt    ccp(_panZoomLayer.contentSize.width - 75, _panZoomLayer.contentSize.height/2)
 
 static HelloWorldLayer *_curGameLayer = nil;
 #pragma mark - HelloWorldLayer
@@ -93,9 +93,8 @@ static HelloWorldLayer *_curGameLayer = nil;
 
 - (void) initGame
 {
-    CGSize s = [CCDirector sharedDirector].winSize;
     
-    int starty = s.height*SIZE_RATIO*0.5 + FRAME_SIZE*0.5;
+    int starty = SCREEN_HEIGHT*0.5 + FRAME_SIZE*0.5;
     
     CCLayerColor *bgLayer = [CCLayerColor layerWithColor:ccc4(0, 0, 0, 0) width:FRAME_SIZE height:FRAME_SIZE];
     bgLayer.position = ccp(FRAME_X_POS, starty);
@@ -137,9 +136,8 @@ static HelloWorldLayer *_curGameLayer = nil;
     [ballBatchNode.texture setAntiAliasTexParameters];
     [_panZoomLayer addChild:ballBatchNode z:1];
     
-    CGSize s = [CCDirector sharedDirector].winSize;
     
-    int starty = s.height*SIZE_RATIO*0.5 + FRAME_SIZE*0.5;
+    int starty = SCREEN_HEIGHT*0.5 + FRAME_SIZE*0.5;
     int stepx =   FRAME_SIZE/4;
     int stepy = FRAME_SIZE/5;
     
@@ -231,7 +229,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 	// Define the ground body.
 	b2BodyDef groundBodyDef;
     
-    float margin = 48.0/PTM_RATIO;
+    float margin = 40.0/PTM_RATIO;
 	groundBodyDef.position.Set(0, 0); // bottom-left corner
 	
 	// Call the body factory which allocates memory for the ground body
@@ -246,19 +244,19 @@ static HelloWorldLayer *_curGameLayer = nil;
     
     
 	
-	groundBox.Set(b2Vec2(0,margin), b2Vec2(s.width*SIZE_RATIO/PTM_RATIO,margin));
+	groundBox.Set(b2Vec2(0,margin), b2Vec2(SCREEN_WITH/PTM_RATIO,margin));
 	groundBody->CreateFixture(&groundBox,0);
 	
 	// top
-	groundBox.Set(b2Vec2(0,s.height*SIZE_RATIO/PTM_RATIO -margin), b2Vec2(s.width*SIZE_RATIO/PTM_RATIO,s.height*SIZE_RATIO/PTM_RATIO - margin));
+	groundBox.Set(b2Vec2(0,SCREEN_HEIGHT/PTM_RATIO -margin), b2Vec2(SCREEN_WITH/PTM_RATIO,SCREEN_HEIGHT/PTM_RATIO - margin));
 	groundBody->CreateFixture(&groundBox,0);
 	
 	// left
-	groundBox.Set(b2Vec2(margin,s.height*SIZE_RATIO/PTM_RATIO), b2Vec2(margin,0));
+	groundBox.Set(b2Vec2(margin,SCREEN_HEIGHT/PTM_RATIO), b2Vec2(margin,0));
 	groundBody->CreateFixture(&groundBox,0);
 	
 	// right
-	groundBox.Set(b2Vec2(s.width*SIZE_RATIO/PTM_RATIO - margin,s.height*SIZE_RATIO/PTM_RATIO), b2Vec2(s.width*SIZE_RATIO/PTM_RATIO - margin,0));
+	groundBox.Set(b2Vec2(SCREEN_WITH/PTM_RATIO - margin,SCREEN_HEIGHT/PTM_RATIO), b2Vec2(SCREEN_WITH/PTM_RATIO - margin,0));
 	groundBody->CreateFixture(&groundBox,0);
 }
 
@@ -292,8 +290,8 @@ static HelloWorldLayer *_curGameLayer = nil;
 	// Define the dynamic body.
 	//Set up a 1m squared box in the physics world
 	b2BodyDef bodyDef;
-    bodyDef.angularDamping = 0.5f;
-    bodyDef.linearDamping = 0.7f;
+    bodyDef.angularDamping = 0.7f;
+    bodyDef.linearDamping = 0.4f;
 	
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
@@ -309,7 +307,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicCircle;
 	
-	fixtureDef.density = 1.0f;
+	fixtureDef.density = 2.0f;
 	fixtureDef.friction = 0.5f;
     fixtureDef.restitution = 1.0f;
     
