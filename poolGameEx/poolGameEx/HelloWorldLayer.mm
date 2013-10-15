@@ -308,7 +308,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 	fixtureDef.shape = &dynamicCircle;
 	
 	fixtureDef.density = 2.0f;
-	fixtureDef.friction = 0.5f;
+	fixtureDef.friction = 0.0f;
     fixtureDef.restitution = 1.0f;
     
 	body->CreateFixture(&fixtureDef);
