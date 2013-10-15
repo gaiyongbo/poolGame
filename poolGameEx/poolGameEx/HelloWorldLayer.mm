@@ -13,6 +13,8 @@
 #import "AppDelegate.h"
 #import "PLPlayer.h"
 #import "PLScoreBoardLayer.h"
+#import "ENButton.h"
+#import "PLGameAlertLayer.h"
 
 #define kLanchCycleDefaultPt    ccp(_panZoomLayer.contentSize.width - 130, _panZoomLayer.contentSize.height/2)
 
@@ -46,22 +48,17 @@ static HelloWorldLayer *_curGameLayer = nil;
 	if( (self=[super init])) {
         _curGameLayer = self;
 
-        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"ball.plist"];
-
         //创建可滚动的层
 	     _panZoomLayer = [[PLCustomPanZoom node] retain];
         //_panZoomLayer.anchorPoint = ccp(0,0);
         [self addChild:_panZoomLayer];
         _panZoomLayer.delegate = self;
-       
-        //添加背景
-        /*CCSprite *background = [CCSprite spriteWithFile: @"background.png"];
-        background.anchorPoint = ccp(0,0);
-		background.scale = CC_CONTENT_SCALE_FACTOR();
-        [self addChild: background
-                             z :1
-                            tag: kBackgroundTag];*/
         
+        CCSprite *bgSprite = [CCSprite spriteWithSpriteFrameName:@"game_bg.png"];
+        bgSprite.anchorPoint = ccp(0, 0);
+        bgSprite.position = ccp(0, 0);
+        [_panZoomLayer addChild:bgSprite];
+ 
         //设置属性
         CGSize s = [CCDirector sharedDirector].winSize;
         
@@ -71,12 +68,12 @@ static HelloWorldLayer *_curGameLayer = nil;
         _panZoomLayer.rubberEffectRatio = 0.0f;
         _panZoomLayer.panBoundsRect = CGRectMake(0, 0, s.width, s.height);
         [self updateForScreenReshape];
+        
         // enable events
-        
-        
 		self.touchEnabled = YES;
 		self.accelerometerEnabled = YES;
 		
+        [self CreateBtns];
 		// init physics
 		[self initPhysics];
 		
@@ -85,37 +82,34 @@ static HelloWorldLayer *_curGameLayer = nil;
 		[self scheduleUpdate];
         
         [self addChild:[PLScoreBoardLayer node]];
-        
-        CCMenuItemLabel *reset = [CCMenuItemFont itemWithString:@"Reset" block:^(id sender){
-            [[CCDirector sharedDirector] replaceScene: [HelloWorldLayer scene]];
-        }];
-        
-        CCMenu *menu = [CCMenu menuWithItems:reset, nil];
-        menu.position = ccp(0, 0);
-        [menu alignItemsVertically];
-        reset.position = ccp(20, menu.contentSize.height - 25);
-        reset.anchorPoint = ccp(0, 1);
-
-
-        [self addChild:menu z:5];
-	}
+    }
 	return self;
+}
+
+-(void)onEnter
+{
+    [super onEnter];
 }
 
 - (void) initGame
 {
-    //画框区
-    
     CGSize s = [CCDirector sharedDirector].winSize;
     
     int starty = s.height*SIZE_RATIO*0.5 + FRAME_SIZE*0.5;
     
-    CCLayerColor *bgLayer = [CCLayerColor layerWithColor:ccc4(255, 0, 0, 200) width:FRAME_SIZE height:FRAME_SIZE];
+    CCLayerColor *bgLayer = [CCLayerColor layerWithColor:ccc4(0, 0, 0, 0) width:FRAME_SIZE height:FRAME_SIZE];
     bgLayer.position = ccp(FRAME_X_POS, starty);
     bgLayer.ignoreAnchorPointForPosition = NO;
     bgLayer.anchorPoint = ccp(0, 1);
     [_panZoomLayer addChild:bgLayer z:0];
-    playerGround = bgLayer;
+    
+    CCSprite *bgSprite = [CCSprite spriteWithSpriteFrameName:@"playeground_bg.png"];
+    bgSprite.position = ccp(bgLayer.position.x + bgLayer.contentSize.width/2,
+                            bgLayer.position.y - bgLayer.contentSize.height/2);
+    bgSprite.anchorPoint = ccp(0.5, 0.5);
+    [_panZoomLayer addChild:bgSprite];
+    
+    playerGround = bgSprite;
     
     lanchCycle = [PLLanchCycleSprite LanchCycleSprite];
     lanchCycle.mDelegate = self;
@@ -184,56 +178,27 @@ static HelloWorldLayer *_curGameLayer = nil;
 	[super dealloc];
 }	
 
--(void) createMenu
+-(void)CreateBtns
 {
-	// Default font size will be 22 points.
-	[CCMenuItemFont setFontSize:22];
-	
-	// Reset Button
-	CCMenuItemLabel *reset = [CCMenuItemFont itemWithString:@"Reset" block:^(id sender){
-		[[CCDirector sharedDirector] replaceScene: [HelloWorldLayer scene]];
-	}];
+    ENButton *btn = [ENButton ButtonWithTouchablePortion:[CCSprite spriteWithSpriteFrameName:@"home.png"] target:self selector:@selector(HomePressed)];
+    btn.position = ccp(10, self.contentSize.height - 5);
+    btn.anchorPoint = ccp(0, 1);
+    [self addChild:btn];
+    
+    btn = [ENButton ButtonWithTouchablePortion:[CCSprite spriteWithSpriteFrameName:@"refresh.png"] target:self selector:@selector(RefreshPressed)];
+    btn.position = ccp(70, self.contentSize.height - 5);
+    btn.anchorPoint = ccp(0, 1);
+    [self addChild:btn];
+}
 
-	// to avoid a retain-cycle with the menuitem and blocks
-	__block id copy_self = self;
+-(void)HomePressed
+{
+    
+}
 
-	// Achievement Menu Item using blocks
-	CCMenuItem *itemAchievement = [CCMenuItemFont itemWithString:@"Achievements" block:^(id sender) {
-		
-		
-		GKAchievementViewController *achivementViewController = [[GKAchievementViewController alloc] init];
-		achivementViewController.achievementDelegate = copy_self;
-		
-		AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-		
-		[[app navController] presentModalViewController:achivementViewController animated:YES];
-		
-		[achivementViewController release];
-	}];
-	
-	// Leaderboard Menu Item using blocks
-	CCMenuItem *itemLeaderboard = [CCMenuItemFont itemWithString:@"Leaderboard" block:^(id sender) {
-		
-		
-		GKLeaderboardViewController *leaderboardViewController = [[GKLeaderboardViewController alloc] init];
-		leaderboardViewController.leaderboardDelegate = copy_self;
-		
-		AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-		
-		[[app navController] presentModalViewController:leaderboardViewController animated:YES];
-		
-		[leaderboardViewController release];
-	}];
-	
-	CCMenu *menu = [CCMenu menuWithItems:itemAchievement, itemLeaderboard, reset, nil];
-	
-	[menu alignItemsVertically];
-	
-	CGSize size = [[CCDirector sharedDirector] winSize];
-	[menu setPosition:ccp( size.width/2, size.height/2)];
-	
-	
-	[self addChild: menu z:-1];	
+-(void)RefreshPressed
+{
+    [[CCDirector sharedDirector] replaceScene: [HelloWorldLayer scene]];
 }
 
 -(void) initPhysics
@@ -336,7 +301,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 	
 	// Define another box shape for our dynamic body.
     b2CircleShape  dynamicCircle;
-    dynamicCircle.m_radius = 12.0/PTM_RATIO;
+    dynamicCircle.m_radius = 9.0/PTM_RATIO;
     
     //b2PolygonShape dynamicCircle;
     //dynamicCircle.SetAsBox(0.5, 0.5);
@@ -374,62 +339,7 @@ static HelloWorldLayer *_curGameLayer = nil;
     
     [self.roundCtrl Update];
     
-    
-    
-    
-    /*
-    NSMutableArray *needRemoveBalls = [NSMutableArray array];
-
-    BOOL haveAwakeBody = NO;
-    for(b2Body* b = world->GetBodyList(); b && b->GetType() == b2_dynamicBody; b = b->GetNext())
-    {
-        b2Vec2 velo = b->GetLinearVelocity();
-        if (ABS(velo.x) < 0.1 && ABS(velo.y) < 0.1) {
-            b->SetAwake(NO);
-        }
-        
-        
-        if (!b->IsAwake() && b->GetUserData())
-        {
-            PLBallSprite *sprite = (PLBallSprite*)b->GetUserData();
-            if (sprite && [sprite isKindOfClass:[PLBallSprite class]]) {
-                sprite.mIsCurrent = NO;
-                if (!CGRectIntersectsRect(playerGround.boundingBox, sprite.boundingBox)) {
-                    [needRemoveBalls addObject:sprite];
-                }
-            }
-        }
-        
-        haveAwakeBody = haveAwakeBody || b->IsAwake();
-    }
-    
-    for (PLBallSprite *ball in needRemoveBalls) {
-        world->DestroyBody([ball b2Body]);
-        CCSequence *seq = [CCSequence actionOne:[CCScaleTo actionWithDuration:0.3 scale:0.1] two:[CCCallBlockN actionWithBlock:^(CCNode *node) {
-            [node removeFromParentAndCleanup:YES];
-            [ball.mPlayer.mBalls removeObject:ball];
-        }]];
-        [ball runAction:seq];
-    }
-    
-    if (self.gameStatus == PLGameStatusReadyToLanch)
-    {
-        if (haveAwakeBody) {
-            self.gameStatus = PLGameStatusLanched;
-        }
-    }
-    else
-    {
-        if (!haveAwakeBody) {
-            self.gameStatus = PLGameStatusReadyToLanch;
-            [self NextPlayer];
-        }
-    }
-    
-    lanchCycle.mLanchAble = self.gameStatus == PLGameStatusReadyToLanch;
-    */
-	
-	// Instruct the world to perform a single step of simulation. It is
+    // Instruct the world to perform a single step of simulation. It is
 	// generally best to keep the time step and iterations fixed.
 	world->Step(dt, velocityIterations, positionIterations);	
 }
@@ -520,4 +430,8 @@ static HelloWorldLayer *_curGameLayer = nil;
     return CGRectIntersectsRect(playerGround.boundingBox, ball.boundingBox);
 }
 
+-(void)ShowAlert
+{
+    [self addChild:[PLGameAlertLayer node] z:100];
+}
 @end

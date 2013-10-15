@@ -102,7 +102,7 @@
         haveInnerBall = haveInnerBall || [CURGAMELAYER IsBallInPlayGround:ball];
     }
     
-    if (!haveInnerBall) {
+    if (!haveInnerBall && !haveMovingBall) {
         self.mGameStatus = PLGameStatusGameOver;
         return;
     }
@@ -120,7 +120,6 @@
         }
         else
         {
-            NSLog(@"%d", self.mGameStatus);
         }
     }
 }
@@ -128,7 +127,11 @@
 -(void)setMGameStatus:(PLGameStatus)mGameStatus
 {
     _mGameStatus = mGameStatus;
-    if (_mGameStatus == PLGameStatusSelectOutBall) {
+    if (_mGameStatus == PLGameStatusGameOver) {
+        [CURGAMELAYER ShowAlert];
+    }
+    else if (_mGameStatus == PLGameStatusSelectOutBall)
+    {
         if (self.mHaveCollisionInnerBall) {
             NSMutableArray *koBall = [NSMutableArray arrayWithCapacity:4];
             for (PLBallSprite *ball in CURGAMELAYER.ballArray) {

@@ -19,9 +19,9 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddScoreForCollision:) name:COLLISION_NOTIFY object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddScoreForKnockout:) name:KNOCKOUT_NOTIFY object:nil];
 
-        curPlayerInfoLabel = [CCLabelTTF labelWithString:@"" fontName:MF_FONT fontSize:20];
-        curPlayerInfoLabel.anchorPoint = ccp(0.5, 1);
-        curPlayerInfoLabel.position = ccp(self.contentSize.width/2, self.contentSize.height - 25);
+        curPlayerInfoLabel = [CCLabelTTF labelWithString:@"" fontName:MF_FONT fontSize:15];
+        curPlayerInfoLabel.anchorPoint = ccp(0, 1);
+        curPlayerInfoLabel.position = ccp(150, self.contentSize.height - 12);
         [self addChild:curPlayerInfoLabel];
     }
     return self;
@@ -51,7 +51,7 @@
     NSString *info = @"";
 
     PLPlayer *curPlayer = [CURGAMELAYER.playerArray objectAtIndex:CURGAMELAYER.roundCtrl.mCurPlayerIndex];
-    info = [NSString stringWithFormat:@"玩家：%d            剩余：%d           得分：%d",
+    info = [NSString stringWithFormat:@"玩家：%d      剩余：%d      得分：%d",
             CURGAMELAYER.roundCtrl.mCurPlayerIndex,
             curPlayer.mBallCount,
             curPlayer.mScore];

@@ -50,6 +50,11 @@
 		[director runWithScene: [IntroLayer scene]];
 	}
 }
+
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 @end
 
 
@@ -126,6 +131,8 @@
 	// Assume that PVR images have premultiplied alpha
 	[CCTexture2D PVRImagesHavePremultipliedAlpha:YES];
 	
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"ball.plist"];
+    
 	// Create a Navigation Controller with the Director
 	navController_ = [[MyNavigationController alloc] initWithRootViewController:director_];
 	navController_.navigationBarHidden = YES;

@@ -33,7 +33,7 @@
 	GLESDebugDraw *m_debugDraw;		// strong ref
     PLCustomPanZoom *_panZoomLayer;
     PLContactListener *_contactListener;
-    CCLayerColor    *playerGround;
+    CCNode    *playerGround;
     PLLanchCycleSprite  *lanchCycle;
     CCSpriteBatchNode   *ballBatchNode;
 }
@@ -45,6 +45,8 @@
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;
 +(HelloWorldLayer*)CurGameLayer;
+
+-(void)ShowAlert;
 
 -(b2World*)CurWorld;
 -(void)DestroyBall:(PLBallSprite*)ball;

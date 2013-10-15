@@ -18,7 +18,7 @@
 
 -(id)InitLanchCycleSprite
 {
-    self = [super initWithFile:@"cycle.png"];
+    self = [super initWithSpriteFrameName:@"lanch_cycle.png"];
     if (self) {
         _mLanchAble = YES;
         mLanchBall = [ENDragableSprite DragableSpriteWithSprite:[CCSprite spriteWithSpriteFrameName:@"ball_0.png"]];
@@ -74,9 +74,7 @@
     CGPoint center = centerOfSize(self.contentSize);
     CGPoint tmpPt = ccpSub(ballPt, center);
     if (self.mDelegate && [self.mDelegate respondsToSelector:@selector(LanchWithForce:withPt:withPlayerType:)]) {
-        NSLog(@"%@[[%@", NSStringFromCGPoint(self.position), NSStringFromCGPoint(mLanchBall.position));
-        CGPoint lanchPt = ccpAdd(self.position, tmpPt);
-        [self.mDelegate LanchWithForce:ccp(tmpPt.x*PL_LANCH_FORCE_DELTA, tmpPt.y*PL_LANCH_FORCE_DELTA) withPt:lanchPt withPlayerType:self.mPlayerType];
+        [self.mDelegate LanchWithForce:ccp(tmpPt.x*PL_LANCH_FORCE_DELTA, tmpPt.y*PL_LANCH_FORCE_DELTA) withPt:self.position withPlayerType:self.mPlayerType];
     }
     
     self.mLanchAble = NO;

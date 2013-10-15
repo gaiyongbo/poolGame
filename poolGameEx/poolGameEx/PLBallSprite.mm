@@ -36,10 +36,10 @@
         [CURGAMELAYER.ballArray addObject:self];
         
         CCSprite *tmp = [CCSprite node];
-        tmp.contentSize = self.contentSize;
+        tmp.contentSize = CGSizeMake(self.contentSize.width * 3, self.contentSize.height * 3);
         ENButton *btn = [ENButton ButtonWithTouchablePortion:tmp target:self selector:@selector(BtnPressed)];
-        btn.position = ccp(0, 0);
-        btn.anchorPoint = ccp(0, 0);
+        btn.position = centerOfSize(self.contentSize);
+        btn.anchorPoint = ccp(0.5, 0.5);
         [self addChild:btn];
     }
 
