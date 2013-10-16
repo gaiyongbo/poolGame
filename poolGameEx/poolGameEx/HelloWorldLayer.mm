@@ -292,7 +292,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 	//Set up a 1m squared box in the physics world
 	b2BodyDef bodyDef;
     bodyDef.angularDamping = 0.9f;
-    bodyDef.linearDamping = 0.9f;
+    bodyDef.linearDamping = 0.85f;
 	
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
@@ -310,7 +310,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 	
 	fixtureDef.density = 2.0f;
 	fixtureDef.friction = 0.0f;
-    fixtureDef.restitution = 1.0f;
+    fixtureDef.restitution = 0.7f;
     
 	body->CreateFixture(&fixtureDef);
     
