@@ -241,6 +241,10 @@ typedef enum
 - (void) ccTouchesMoved: (NSSet *) touches 
 			  withEvent: (UIEvent *) event
 {
+    if (self.touches.count == 0) {
+        return;
+    }
+    
 	BOOL multitouch = [self.touches count] > 1;
 	if (multitouch)
 	{

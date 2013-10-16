@@ -16,7 +16,7 @@
 #import "ENButton.h"
 #import "PLGameAlertLayer.h"
 
-#define kLanchCycleDefaultPt    ccp(_panZoomLayer.contentSize.width - 130, _panZoomLayer.contentSize.height/2)
+#define kLanchCycleDefaultPt    ccp(_panZoomLayer.contentSize.width - 200, _panZoomLayer.contentSize.height/2)
 
 static HelloWorldLayer *_curGameLayer = nil;
 #pragma mark - HelloWorldLayer
