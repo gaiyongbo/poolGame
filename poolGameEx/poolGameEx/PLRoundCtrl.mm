@@ -132,24 +132,39 @@
     }
     else if (_mGameStatus == PLGameStatusSelectOutBall)
     {
-        if (self.mHaveCollisionInnerBall) {
-            NSMutableArray *koBall = [NSMutableArray arrayWithCapacity:4];
-            for (PLBallSprite *ball in CURGAMELAYER.ballArray) {
-                if (ball.mIsKnockout) {
-                    [koBall addObject:ball];
-                    [ball SetSelectable];
-                }
+        self.mKOBallArray = nil;
+        
+        NSInteger koCount = 0;
+        NSMutableArray *koBall = [NSMutableArray arrayWithCapacity:4];
+        for (PLBallSprite *ball in CURGAMELAYER.ballArray) {
+            if ([ball IsKnockOut])//是否存在打出去的球
+            {
+                koCount += 1;
+                [koBall addObject:ball];
             }
-            
-            self.mKOBallArray = koBall;
-            
-            if (self.mKOBallArray.count == 0) {
-                [self NextPlayer];
+            else if ([ball IsCurPlayerAndOut])//是否存在当前用户的球
+            {
+                [koBall addObject:ball];
             }
         }
-        else
-        {
+        
+        //判断外围是否存在打出去的球或者自己的球
+        if (koBall.count > 0) {
+            PLPlayer *curPlayer = [CURGAMELAYER.playerArray objectAtIndex:self.mCurPlayerIndex];
+            curPlayer.mBallCount += 1;
+        }
+        
+        //如果不存在碰撞或者没有打出球，开始下一轮
+        if (!self.mHaveCollisionInnerBall || koCount == 0) {
+            [koBall removeAllObjects];
             [self NextPlayer];
+            return;
+        }
+        
+        //设置可选择的球
+        self.mKOBallArray = koBall;
+        for (PLBallSprite *ball in self.mKOBallArray) {
+            [ball SetSelectable];
         }
     }
 }
@@ -160,10 +175,6 @@
         for (PLBallSprite *ball in self.mKOBallArray) {
             if (ball != notify.object) {
                 [ball RemoveWithAddScore:YES];
-            }
-            else
-            {
-                ball.mPlayer.mBallCount += 1;
             }
         }
         

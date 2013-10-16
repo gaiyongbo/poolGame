@@ -173,6 +173,10 @@ static HelloWorldLayer *_curGameLayer = nil;
 	
 	delete m_debugDraw;
 	m_debugDraw = NULL;
+    
+    self.playerArray = nil;
+    self.ballArray = nil;
+    self.roundCtrl = nil;
         	
 	[super dealloc];
 }	

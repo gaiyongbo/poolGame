@@ -92,11 +92,18 @@
     }
 }
 
--(BOOL)mIsKnockout
+-(BOOL)IsCurPlayerAndOut
 {
-    _mIsKnockout = (self.mStatus == PLBallStatusOut && self.mPrevStatus == PLBallStatusIn)
-                    || (self.mStatus == PLBallStatusOut && self.mPlayer.mType == CURGAMELAYER.roundCtrl.mCurPlayerIndex);
-    return _mIsKnockout;
+    return (self.mStatus == PLBallStatusOut && self.mPlayer.mType == CURGAMELAYER.roundCtrl.mCurPlayerIndex);
+}
+
+-(BOOL)IsKnockOut
+{
+//    _mIsKnockout = (self.mStatus == PLBallStatusOut && self.mPrevStatus == PLBallStatusIn)
+//    || (self.mStatus == PLBallStatusOut && self.mPlayer.mType == CURGAMELAYER.roundCtrl.mCurPlayerIndex);
+//    return _mIsKnockout;
+    
+    return (self.mStatus == PLBallStatusOut && self.mPrevStatus == PLBallStatusIn);
 }
 
 -(void)Impulse:(CGPoint)force

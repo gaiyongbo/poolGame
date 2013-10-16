@@ -52,7 +52,7 @@
 
     PLPlayer *curPlayer = [CURGAMELAYER.playerArray objectAtIndex:CURGAMELAYER.roundCtrl.mCurPlayerIndex];
     info = [NSString stringWithFormat:@"玩家：%d      剩余：%d      得分：%d",
-            CURGAMELAYER.roundCtrl.mCurPlayerIndex,
+            CURGAMELAYER.roundCtrl.mCurPlayerIndex + 1,
             curPlayer.mBallCount,
             curPlayer.mScore];
     

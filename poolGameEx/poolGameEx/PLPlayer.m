@@ -13,7 +13,7 @@
 {
     self = [super init];
     if (self) {
-        self.mBallCount = 5;
+        self.mBallCount = 2;
     }
     
     return self;

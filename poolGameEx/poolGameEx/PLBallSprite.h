@@ -34,9 +34,11 @@ typedef enum
 
 -(void)CheckPrevStatus;
 
+-(BOOL)IsKnockOut;
+-(BOOL)IsCurPlayerAndOut;
+
 @property(nonatomic,assign)PLPlayer     *mPlayer;
 @property(nonatomic)BOOL                mIsCurrent;
 @property(nonatomic)PLBallStatus        mStatus;
 @property(nonatomic)PLBallStatus        mPrevStatus;
-@property(nonatomic)BOOL                mIsKnockout;
 @end
