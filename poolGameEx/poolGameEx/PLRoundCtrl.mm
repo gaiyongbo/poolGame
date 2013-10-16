@@ -144,6 +144,7 @@
             }
             else if ([ball IsCurPlayerAndOut])//是否存在当前用户的球
             {
+//                koCount += 1;//当前球算作KO球
                 [koBall addObject:ball];
             }
         }
