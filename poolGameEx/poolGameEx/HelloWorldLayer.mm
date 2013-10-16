@@ -103,7 +103,7 @@ static HelloWorldLayer *_curGameLayer = nil;
     [_panZoomLayer addChild:bgLayer z:0];
     
     CCSprite *bgSprite = [CCSprite spriteWithSpriteFrameName:@"playeground_bg.png"];
-    bgSprite.position = ccp(bgLayer.position.x + bgLayer.contentSize.width/2,
+    bgSprite.position = ccp(bgLayer.position.x + bgLayer.contentSize.width/2 + 7,
                             bgLayer.position.y - bgLayer.contentSize.height/2);
     bgSprite.anchorPoint = ccp(0.5, 0.5);
     bgSprite.scale = 0.8;
@@ -139,8 +139,8 @@ static HelloWorldLayer *_curGameLayer = nil;
     
     
     int starty = SCREEN_HEIGHT*0.5 + FRAME_SIZE*0.5;
-    int stepx =   FRAME_SIZE/4;
-    int stepy = FRAME_SIZE/5;
+    int stepx =   FRAME_SIZE/4 - 12;
+    int stepy = FRAME_SIZE/5 -12;
     
     NSMutableArray *playerBallArray = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0",
                                                                        @"1",@"1",@"1",
@@ -149,7 +149,7 @@ static HelloWorldLayer *_curGameLayer = nil;
     
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 4; j ++) {
-            CGPoint pt = ccp(FRAME_X_POS + stepx*(i + 1), starty - stepy*(j + 1));
+            CGPoint pt = ccp(FRAME_X_POS + 30 + stepx*(i + 1), starty - 30  - stepy*(j + 1));
             NSInteger index = arc4random() % playerBallArray.count;
             [self addNewSpriteAtPosition:pt withPlayer:(PLPlayerType)[[playerBallArray objectAtIndex:index] integerValue]];
             [playerBallArray removeObjectAtIndex:index];
