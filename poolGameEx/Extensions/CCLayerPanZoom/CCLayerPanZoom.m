@@ -186,7 +186,7 @@ typedef enum
     CGSize s = [[CCDirector sharedDirector] winSize];
 
     
-	if ((self = [super initWithColor:ccc4(0, 255, 255, 255) width:s.width*SIZE_RATIO height:s.height*SIZE_RATIO]))
+	if ((self = [super initWithColor:ccc4(0, 255, 255, 255) width:SCREEN_WITH height:SCREEN_HEIGHT]))
 	{
 #if COCOS2D_VERSION >= 0x00020000
         self.ignoreAnchorPointForPosition = NO;

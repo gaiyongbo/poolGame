@@ -32,7 +32,6 @@
 
 #define kCCLayerPanZoomMultitouchGesturesDetectionDelay 0.05
 
-#define SIZE_RATIO 1.5
 typedef enum
 {
     /** Standard mode: swipe to scroll */
