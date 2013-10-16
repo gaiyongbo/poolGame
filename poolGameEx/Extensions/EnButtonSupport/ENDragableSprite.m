@@ -97,4 +97,10 @@
     [super dealloc];
 }
 
+-(void)MakeBigSize:(CGSize)size
+{
+    self.contentSize = size;
+    
+    self.mSprite.position = centerOfSize(size);
+}
 @end

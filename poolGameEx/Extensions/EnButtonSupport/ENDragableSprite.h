@@ -39,4 +39,6 @@
 
 +(id)DragableSpriteWithSprite:(CCSprite*)sprite;
 -(id)InitWithSprite:(CCSprite*)sprite;
+
+-(void)MakeBigSize:(CGSize)size;
 @end
