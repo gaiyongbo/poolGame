@@ -27,6 +27,7 @@
         mLanchBall.mDelegate = self;
         mLanchBall.anchorPoint = ccp(0.5, 0.5);
         mLanchBall.position = centerOfSize(self.contentSize);
+        [mLanchBall MakeBigSize:self.contentSize];
         [self addChild:mLanchBall z:0];
         
         mArrow = [CCSprite spriteWithFile:@"arrow.png"];
@@ -91,15 +92,16 @@
     CGPoint pt = ccpForAngle(angle);
     
     NSLog(@"%f", angle);
-    if (dist > 50) {
-        CGFloat x = center.x + 50.0 * pt.x;
-        CGFloat y = center.y + 50.0 * pt.y;
+    CGFloat maxDist = self.contentSize.width/2;
+    if (dist > maxDist) {
+        CGFloat x = center.x + maxDist * pt.x;
+        CGFloat y = center.y + maxDist * pt.y;
         ballPt = ccp(x, y);
-        dist = 50;
+        dist = maxDist;
     }
 
     mArrow.rotation = -180*angle/M_PI;
-    mArrow.scaleX = 1+(dist*0.05);
+    mArrow.scaleX = 1+(dist*0.06);
     mLanchBall.position = ballPt;
 }
 
