@@ -8,7 +8,7 @@
 
 #import "PLLanchCycleSprite.h"
 
-#define PL_LANCH_FORCE_DELTA        -0.055
+#define PL_LANCH_FORCE_DELTA        -0.2
 @implementation PLLanchCycleSprite
 
 +(id)LanchCycleSprite

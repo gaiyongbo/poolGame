@@ -16,7 +16,7 @@
 #import "ENButton.h"
 #import "PLGameAlertLayer.h"
 
-#define kLanchCycleDefaultPt    ccp(_panZoomLayer.contentSize.width - 75, _panZoomLayer.contentSize.height/2)
+#define kLanchCycleDefaultPt    ccp(_panZoomLayer.contentSize.width - 150, _panZoomLayer.contentSize.height/2)
 
 static HelloWorldLayer *_curGameLayer = nil;
 #pragma mark - HelloWorldLayer
@@ -106,6 +106,7 @@ static HelloWorldLayer *_curGameLayer = nil;
     bgSprite.position = ccp(bgLayer.position.x + bgLayer.contentSize.width/2,
                             bgLayer.position.y - bgLayer.contentSize.height/2);
     bgSprite.anchorPoint = ccp(0.5, 0.5);
+    bgSprite.scale = 0.8;
     [_panZoomLayer addChild:bgSprite];
     
     playerGround = bgSprite;
@@ -191,7 +192,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 
 -(void)HomePressed
 {
-    
+    [[CCDirector sharedDirector] popScene];
 }
 
 -(void)RefreshPressed
@@ -201,7 +202,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 
 -(void) initPhysics
 {
-	CGSize s = [[CCDirector sharedDirector] winSize];
+//	CGSize s = [[CCDirector sharedDirector] winSize];
 	
 	b2Vec2 gravity;
 	gravity.Set(0.0f, 0.0f);
@@ -425,7 +426,8 @@ static HelloWorldLayer *_curGameLayer = nil;
 
 -(BOOL)IsBallInPlayGround:(PLBallSprite *)ball
 {
-    return CGRectIntersectsRect(playerGround.boundingBox, ball.boundingBox);
+    CGRect playGroundRect = CGRectInset(playerGround.boundingBox, 3, 3);
+    return CGRectIntersectsRect(playGroundRect, ball.boundingBox);
 }
 
 -(void)ShowAlert

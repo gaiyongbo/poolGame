@@ -183,7 +183,7 @@ typedef enum
 
 - (id) init
 {
-    CGSize s = [[CCDirector sharedDirector] winSize];
+//    CGSize s = [[CCDirector sharedDirector] winSize];
 
     
 	if ((self = [super initWithColor:ccc4(0, 255, 255, 255) width:SCREEN_WITH height:SCREEN_HEIGHT]))
