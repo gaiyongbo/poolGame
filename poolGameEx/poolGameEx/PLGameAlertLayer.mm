@@ -38,12 +38,12 @@
         offsetY -= 30;
     }
     
-    ENButton *btn = [ENButton ButtonWithTouchablePortion:[CCSprite spriteWithSpriteFrameName:@"home.png"] target:self selector:@selector(HomePressed)];
+    ENButton *btn = [ENButton ButtonWithTouchablePortion:[CCSprite spriteWithSpriteFrameName:@"home.png"] target:CURGAMELAYER selector:@selector(HomePressed)];
     btn.position = ccp(60, 10);
     btn.anchorPoint = ccp(0, 0);
     [mBgSprite addChild:btn];
     
-    btn = [ENButton ButtonWithTouchablePortion:[CCSprite spriteWithSpriteFrameName:@"refresh.png"] target:self selector:@selector(RefreshPressed)];
+    btn = [ENButton ButtonWithTouchablePortion:[CCSprite spriteWithSpriteFrameName:@"refresh.png"] target:CURGAMELAYER selector:@selector(RefreshPressed)];
     btn.position = ccp(130, 10);
     btn.anchorPoint = ccp(0, 0);
     [mBgSprite addChild:btn];

@@ -20,6 +20,7 @@ typedef enum
 
 @interface PLBallSprite : CCPhysicsSprite
 {
+    ENButton            *mBtn;
 }
 
 +(id)BallSpriteWithPlayer:(PLPlayer*)player withBody:(b2Body*)body;

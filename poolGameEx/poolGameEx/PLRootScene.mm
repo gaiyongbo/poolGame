@@ -21,11 +21,16 @@
         [self addChild:bg];
         
         ENButton *btn = [ENButton ButtonWithTouchablePortion:[CCSprite spriteWithSpriteFrameName:@"danren_play_btn.png"] target:self selector:@selector(StartGame)];
-        btn.position = ccp(100, 80);
+        btn.position = ccp(150, 80);
         [bg addChild:btn];
         
         btn = [ENButton ButtonWithTouchablePortion:[CCSprite spriteWithSpriteFrameName:@"duoren_play_btn.png"] target:self selector:@selector(StartGame)];
-        btn.position = ccp(380, 80);
+        btn.position = ccp(330, 80);
+        [bg addChild:btn];
+        
+        btn = [ENButton ButtonWithTouchablePortion:[CCSprite spriteWithSpriteFrameName:@"shezhi_btn.png"] target:nil selector:nil];
+        btn.position = ccp(bg.contentSize.width - 10, 10);
+        btn.anchorPoint = ccp(1, 0);
         [bg addChild:btn];
     }
     

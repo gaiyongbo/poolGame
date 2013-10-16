@@ -40,7 +40,9 @@
         ENButton *btn = [ENButton ButtonWithTouchablePortion:tmp target:self selector:@selector(BtnPressed)];
         btn.position = centerOfSize(self.contentSize);
         btn.anchorPoint = ccp(0.5, 0.5);
+        btn.isEnable = NO;
         [self addChild:btn];
+        mBtn = btn;
     }
 
     return self;
@@ -107,6 +109,7 @@
 
 -(void)SetSelectable
 {
+    mBtn.isEnable = YES;
     self.mPlayer = [CURGAMELAYER.playerArray objectAtIndex:CURGAMELAYER.roundCtrl.mCurPlayerIndex];
     [self setDisplayFrame:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"ball_%d.png", self.mPlayer.mType]]];
     CCRepeatForever *action = [CCRepeatForever actionWithAction:[CCSequence actionOne:[CCScaleTo actionWithDuration:0.5 scale:0.6] two:[CCScaleTo actionWithDuration:0.5 scale:1]]];
