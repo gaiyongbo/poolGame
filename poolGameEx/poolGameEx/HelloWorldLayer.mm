@@ -201,7 +201,8 @@ static HelloWorldLayer *_curGameLayer = nil;
 
 -(void)RefreshPressed
 {
-    [[CCDirector sharedDirector] replaceScene: [HelloWorldLayer scene]];
+    CCTransitionFade *scene = [CCTransitionFade transitionWithDuration:1 scene:[HelloWorldLayer scene]];
+    [[CCDirector sharedDirector] replaceScene: scene];
 }
 
 -(void) initPhysics

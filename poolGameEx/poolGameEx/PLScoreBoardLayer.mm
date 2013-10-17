@@ -62,9 +62,9 @@
 -(void)AddScoreForCollision:(NSNotification*)notify
 {
     PLBallSprite *targetBall = notify.object;
-    targetBall.mPlayer.mScore += 1;
+    targetBall.mPlayer.mScore += 10;
     
-    CCLabelTTF *label = [CCLabelTTF labelWithString:@"+1" fontName:MF_FONT fontSize:15];
+    CCLabelTTF *label = [CCLabelTTF labelWithString:@"+10" fontName:MF_FONT fontSize:15];
     label.color = ccc3(255, 0, 0);
     label.position = [targetBall convertToWorldSpace:centerOfSize(targetBall.contentSize)];
     [self addChild:label z:3];

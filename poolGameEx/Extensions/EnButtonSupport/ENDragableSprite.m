@@ -8,7 +8,7 @@
 
 #import "ENDragableSprite.h"
 
-#define kENDragableNodeMinDragDist        10
+#define kENDragableNodeMinDragDist        1
 @implementation ENDragableSprite
 
 +(id)DragableSpriteWithSprite:(CCSprite *)sprite

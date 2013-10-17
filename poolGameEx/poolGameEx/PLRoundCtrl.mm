@@ -167,6 +167,12 @@
         for (PLBallSprite *ball in self.mKOBallArray) {
             [ball SetSelectable];
         }
+        
+        //如果外围自由一个击出球，则直接开始下一轮
+        if (self.mKOBallArray.count == 1) {
+            self.mKOBallArray = nil;
+            self.mCurPlayerIndex = self.mCurPlayerIndex;
+        }
     }
 }
 
