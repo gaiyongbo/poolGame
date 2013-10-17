@@ -297,7 +297,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 	//Set up a 1m squared box in the physics world
 	b2BodyDef bodyDef;
     bodyDef.angularDamping = 0.9f;
-    bodyDef.linearDamping = 0.85f;
+    bodyDef.linearDamping = 1.7;
 	
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
