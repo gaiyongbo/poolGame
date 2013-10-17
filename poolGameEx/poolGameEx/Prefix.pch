@@ -21,8 +21,9 @@
 #define COUNT_PER_COL   4
 #define FRAME_X_POS 130
 
-
-#define KNOCKOUT_NOTIFY            @"KNOCKOUT_NOTIFY"
+#define kPlayerNames                @[@"东邪", @"西毒", @"南帝", @"北丐"]
+#define SHOW_CUR_PLAYER_TIP         @"SHOW_CUR_PLAYER_TIP"
+#define KNOCKOUT_NOTIFY             @"KNOCKOUT_NOTIFY"
 #define COLLISION_NOTIFY            @"COLLISION_NOTIFY"
 #define SELECT_BALL_NOTIFY          @"SELECT_BALL_NOTIFY"
 

@@ -10,7 +10,9 @@
 
 @interface PLScoreBoardLayer : CCLayer
 {
-    CCLabelTTF              *curPlayerInfoLabel;
+    CCLabelTTF              *curPlayerName;
+    CCLabelTTF              *curPlayerBallCount;
+    CCLabelTTF              *curPlayerScore;
 }
 
 @end

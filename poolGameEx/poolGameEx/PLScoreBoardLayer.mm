@@ -18,11 +18,22 @@
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddScoreForCollision:) name:COLLISION_NOTIFY object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddScoreForKnockout:) name:KNOCKOUT_NOTIFY object:nil];
-
-        curPlayerInfoLabel = [CCLabelTTF labelWithString:@"" fontName:MF_FONT fontSize:15];
-        curPlayerInfoLabel.anchorPoint = ccp(0, 1);
-        curPlayerInfoLabel.position = ccp(150, self.contentSize.height - 12);
-        [self addChild:curPlayerInfoLabel];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ShowCurPlayerTip:) name:SHOW_CUR_PLAYER_TIP object:nil];
+        
+        curPlayerName = [CCLabelTTF labelWithString:@"" fontName:MF_FONT fontSize:18];
+        curPlayerName.position = ccp(150, self.contentSize.height - 20);
+        curPlayerName.color = ccORANGE;
+        [self addChild:curPlayerName];
+        
+        curPlayerBallCount = [CCLabelTTF labelWithString:@"" fontName:MF_FONT fontSize:15];
+        curPlayerBallCount.position = ccp(250, self.contentSize.height - 20);
+        curPlayerBallCount.color = ccMAGENTA;
+        [self addChild:curPlayerBallCount];
+        
+        curPlayerScore = [CCLabelTTF labelWithString:@"" fontName:MF_FONT fontSize:15];
+        curPlayerScore.position = ccp(350, self.contentSize.height - 20);
+        curPlayerScore.color = ccRED;
+        [self addChild:curPlayerScore];
     }
     return self;
 }
@@ -48,15 +59,11 @@
 
 -(void)UPdateCurPlayerInfo
 {
-    NSString *info = @"";
-
     PLPlayer *curPlayer = [CURGAMELAYER.playerArray objectAtIndex:CURGAMELAYER.roundCtrl.mCurPlayerIndex];
-    info = [NSString stringWithFormat:@"玩家：%d      剩余：%d      得分：%d",
-            CURGAMELAYER.roundCtrl.mCurPlayerIndex + 1,
-            curPlayer.mBallCount,
-            curPlayer.mScore];
     
-    curPlayerInfoLabel.string = info;
+    curPlayerName.string = [kPlayerNames objectAtIndex:CURGAMELAYER.roundCtrl.mCurPlayerIndex];
+    curPlayerBallCount.string = [NSString stringWithFormat:@"剩余：%d", curPlayer.mBallCount];
+    curPlayerScore.string = [NSString stringWithFormat:@"得分：%d", curPlayer.mScore];
 }
 
 -(void)AddScoreForCollision:(NSNotification*)notify
@@ -69,7 +76,7 @@
     label.position = [targetBall convertToWorldSpace:centerOfSize(targetBall.contentSize)];
     [self addChild:label z:3];
     
-    CCMoveTo *moveAction = [CCMoveTo actionWithDuration:2 position:ccp(self.contentSize.width/2, self.contentSize.height)];
+    CCMoveTo *moveAction = [CCMoveTo actionWithDuration:2 position:curPlayerScore.position];
     CCCallBlockN *call = [CCCallBlockN actionWithBlock:^(CCNode *node) {
         [node removeFromParentAndCleanup:YES];
     }];
@@ -101,7 +108,7 @@
     label.position = [targetBall convertToWorldSpace:centerOfSize(targetBall.contentSize)];
     [self addChild:label z:3];
     
-    CCMoveTo *moveAction = [CCMoveTo actionWithDuration:2 position:ccp(self.contentSize.width/2, self.contentSize.height)];
+    CCMoveTo *moveAction = [CCMoveTo actionWithDuration:2 position:curPlayerScore.position];
     CCCallBlockN *call = [CCCallBlockN actionWithBlock:^(CCNode *node) {
         [node removeFromParentAndCleanup:YES];
     }];
@@ -121,6 +128,24 @@
     [hitParticle runAction:[CCSequence actionOne:delay two:call]];
     
     [[SimpleAudioEngine sharedEngine] playEffect:@"aeffect.mp3"];
+}
+
+-(void)ShowCurPlayerTip:(NSNotification*)notify
+{
+    NSString *playerName = [kPlayerNames objectAtIndex:[notify.object integerValue]];
+    CCLabelTTF *tipLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@ 击打", playerName] fontName:MF_FONT fontSize:50];
+    tipLabel.color = ccORANGE;
+    tipLabel.position = centerOfSize(self.contentSize);
+    tipLabel.scale = 0.01;
+    [self addChild:tipLabel];
+    
+    CCScaleTo *scaleAction = [CCScaleTo actionWithDuration:1 scale:1.5];
+    CCFadeOut *fadeAction = [CCFadeOut actionWithDuration:0.5];
+    CCCallBlockN *endCall = [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+    }];
+    
+    [tipLabel runAction:[CCSequence actions:scaleAction, fadeAction, endCall, nil]];
 }
 
 -(void)dealloc

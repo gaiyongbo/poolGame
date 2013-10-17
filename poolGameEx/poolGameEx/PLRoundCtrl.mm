@@ -38,6 +38,8 @@
         return;
     }
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:SHOW_CUR_PLAYER_TIP object:[NSNumber numberWithInt:mCurPlayerIndex]];
+    
     _mCurPlayerIndex = mCurPlayerIndex;
     self.mHaveCollisionInnerBall = NO;
     self.mGameStatus = PLGameStatusReadyToLanch;

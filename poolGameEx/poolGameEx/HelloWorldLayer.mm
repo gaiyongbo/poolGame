@@ -69,6 +69,8 @@ static HelloWorldLayer *_curGameLayer = nil;
         _panZoomLayer.panBoundsRect = CGRectMake(0, 0, s.width, s.height);
         [self updateForScreenReshape];
         
+        [self addChild:[PLScoreBoardLayer node]];
+
         // enable events
 		self.touchEnabled = YES;
 		self.accelerometerEnabled = YES;
@@ -80,8 +82,6 @@ static HelloWorldLayer *_curGameLayer = nil;
 		[self initGame];
 		
 		[self scheduleUpdate];
-        
-        [self addChild:[PLScoreBoardLayer node]];
     }
 	return self;
 }
@@ -114,6 +114,7 @@ static HelloWorldLayer *_curGameLayer = nil;
     lanchCycle = [PLLanchCycleSprite LanchCycleSprite];
     lanchCycle.mDelegate = self;
     lanchCycle.position = kLanchCycleDefaultPt;
+    lanchCycle.mLine.visible = YES;
     [_panZoomLayer addChild:lanchCycle z:0];
     
     [self startGame];
@@ -421,8 +422,10 @@ static HelloWorldLayer *_curGameLayer = nil;
 
 -(void)SetLanchCycleWithPType:(PLPlayerType)pType withPt:(CGPoint)pt
 {
+    lanchCycle.mLine.visible = NO;
     if (CGPointEqualToPoint(pt, CGPointZero)) {
         pt = kLanchCycleDefaultPt;
+        lanchCycle.mLine.visible = YES;
     }
     lanchCycle.mPlayerType = pType;
     lanchCycle.position = pt;

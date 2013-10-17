@@ -25,6 +25,7 @@
 @property(nonatomic,assign)id<PLLanchCycleDelegate> mDelegate;
 @property(nonatomic)BOOL mLanchAble;
 @property(nonatomic)PLPlayerType mPlayerType;
+@property(nonatomic,retain)CCSprite     *mLine;
 +(id)LanchCycleSprite;
 -(id)InitLanchCycleSprite;
 @end

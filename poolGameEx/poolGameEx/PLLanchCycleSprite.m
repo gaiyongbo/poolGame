@@ -34,6 +34,11 @@
         mArrow.position = mLanchBall.position;
         mArrow.anchorPoint = ccp(1, 0.5);
         [self addChild:mArrow z:1];
+        
+        self.mLine = [CCSprite spriteWithFile:@"line.png"];
+        self.mLine.position = ccp(-20, self.contentSize.height/2);
+        self.mLine.scale = 1.25;
+        [self addChild:self.mLine];
     }
     return self;
 }

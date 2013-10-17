@@ -31,7 +31,7 @@
     for (int i = 0; i < CURGAMELAYER.playerArray.count; i++) {
         PLPlayer *player = [CURGAMELAYER.playerArray objectAtIndex:i];
         
-        CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"玩家 %d 得分：%d", player.mType + 1, player.mScore] fontName:MF_FONT fontSize:13];
+        CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@ 得分：%d", [kPlayerNames objectAtIndex:player.mType], player.mScore] fontName:MF_FONT fontSize:13];
         label.anchorPoint = ccp(0, 0);
         label.position = ccp(offsetX, offsetY);
         [mBgSprite addChild:label];
