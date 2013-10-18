@@ -20,11 +20,11 @@ void PLContactListener::BeginContact(b2Contact* contact)
     
     if (spriteA.mIsCurrent && spriteB)
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:CUR_COLLISION_NOTIFY object:spriteB];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CUR_COLLISION_NOTIFY object:spriteA];
     }
     else if (spriteB.mIsCurrent && spriteA)
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:CUR_COLLISION_NOTIFY object:spriteA];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CUR_COLLISION_NOTIFY object:spriteB];
     }
     
     if ([CURGAMELAYER IsBallInPlayGround:spriteA] || [CURGAMELAYER IsBallInPlayGround:spriteB]) {
