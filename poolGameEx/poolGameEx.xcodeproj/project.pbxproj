@@ -198,7 +198,7 @@
 		92FF8F0C1809250800B0CD2A /* PLContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92FF8F0B1809250800B0CD2A /* PLContactListener.mm */; };
 		FB074C76180F827C006417FA /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = FB074C75180F827C006417FA /* line.png */; };
 		FB0C05911809393E00B50DE6 /* cycle.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0C05901809393E00B50DE6 /* cycle.png */; };
-		FB0C059418093C7100B50DE6 /* PLLanchCycleSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.m */; };
+		FB0C059418093C7100B50DE6 /* PLLanchCycleSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.mm */; };
 		FB0C059618093E1D00B50DE6 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0C059518093E1D00B50DE6 /* arrow.png */; };
 		FB0C0599180A86F900B50DE6 /* PLScoreBoardLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB0C0598180A86F900B50DE6 /* PLScoreBoardLayer.mm */; };
 		FB0C059B180A8BF500B50DE6 /* hitInMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB0C059A180A8BF500B50DE6 /* hitInMap.plist */; };
@@ -608,7 +608,7 @@
 		FB074C75180F827C006417FA /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = line.png; path = Resources/line.png; sourceTree = "<group>"; };
 		FB0C05901809393E00B50DE6 /* cycle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cycle.png; path = Resources/cycle.png; sourceTree = "<group>"; };
 		FB0C059218093C7100B50DE6 /* PLLanchCycleSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLLanchCycleSprite.h; sourceTree = "<group>"; };
-		FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLLanchCycleSprite.m; sourceTree = "<group>"; };
+		FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLLanchCycleSprite.mm; sourceTree = "<group>"; };
 		FB0C059518093E1D00B50DE6 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = Resources/arrow.png; sourceTree = "<group>"; };
 		FB0C0597180A86F900B50DE6 /* PLScoreBoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLScoreBoardLayer.h; sourceTree = "<group>"; };
 		FB0C0598180A86F900B50DE6 /* PLScoreBoardLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLScoreBoardLayer.mm; sourceTree = "<group>"; };
@@ -716,7 +716,7 @@
 				92D87FEA1807D4FC00CA1811 /* PLCustomPanZoom.h */,
 				92D87FEB1807D4FC00CA1811 /* PLCustomPanZoom.m */,
 				FB0C059218093C7100B50DE6 /* PLLanchCycleSprite.h */,
-				FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.m */,
+				FB0C059318093C7100B50DE6 /* PLLanchCycleSprite.mm */,
 				FB89B282180912C50040D4FA /* PLPlayer.h */,
 				FB89B283180912C50040D4FA /* PLPlayer.m */,
 				FB0C0597180A86F900B50DE6 /* PLScoreBoardLayer.h */,
@@ -1532,7 +1532,7 @@
 				9201AD9518053FF500E9D540 /* CCFontDefinition.m in Sources */,
 				9201ADD518053FF600E9D540 /* CCPhysicsSprite.mm in Sources */,
 				9201AF3918053FF800E9D540 /* b2MouseJoint.cpp in Sources */,
-				FB0C059418093C7100B50DE6 /* PLLanchCycleSprite.m in Sources */,
+				FB0C059418093C7100B50DE6 /* PLLanchCycleSprite.mm in Sources */,
 				9201AEE418053FF800E9D540 /* b2PolygonShape.cpp in Sources */,
 				9201AEB918053FF700E9D540 /* vec2.c in Sources */,
 				9201AEF918053FF800E9D540 /* b2Timer.cpp in Sources */,

@@ -17,6 +17,9 @@
     
     self.touchEnabled = YES;
     
+    CCLayerColor *bgLayer = [CCLayerColor layerWithColor:ccc4(0, 0, 0, 100)];
+    [self addChild:bgLayer];
+    
     ENButton *bg = [ENButton ButtonWithTouchablePortion:[CCLayer node] target:self selector:@selector(dismiss)];
     bg.anchorPoint = bg.position = ccp(0, 0);
     [self addChild:bg];
@@ -41,11 +44,13 @@
     ENButton *btn = [ENButton ButtonWithTouchablePortion:[CCSprite spriteWithSpriteFrameName:@"home.png"] target:CURGAMELAYER selector:@selector(HomePressed)];
     btn.position = ccp(60, 10);
     btn.anchorPoint = ccp(0, 0);
+    [btn MakeBigHitArea];
     [mBgSprite addChild:btn];
     
     btn = [ENButton ButtonWithTouchablePortion:[CCSprite spriteWithSpriteFrameName:@"refresh.png"] target:CURGAMELAYER selector:@selector(RefreshPressed)];
     btn.position = ccp(130, 10);
     btn.anchorPoint = ccp(0, 0);
+    [btn MakeBigHitArea];
     [mBgSprite addChild:btn];
 }
 
@@ -58,6 +63,6 @@
 
 -(void)dismiss
 {
-    [self removeFromParentAndCleanup:YES];
+//    [self removeFromParentAndCleanup:YES];
 }
 @end

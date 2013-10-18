@@ -22,4 +22,5 @@
 
 +(id)ButtonWithTouchablePortion:(CCNode*)node target:(id)target selector:(SEL)selector;
 -(id)InitWithTouchablePortion:(CCNode*)node target:(id)target selector:(SEL)selector;
+-(void)MakeBigHitArea;
 @end

@@ -129,4 +129,18 @@
 	_touchablePortion.anchorPoint = ccp(0.5,0.5);
 	_touchablePortion.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
 }
+
+
+-(void)MakeBigHitArea
+{
+    CGFloat widht = self.contentSize.width < 40 ? 40 : self.contentSize.width + 10;
+    CGFloat height = self.contentSize.height < 40 ? 40 : self.contentSize.height + 10;
+    self.contentSize = CGSizeMake(widht, height);
+    
+    CGPoint center = centerOfSize(self.contentSize);
+    for (CCNode *node in self.children) {
+        node.position = center;
+    }
+}
+
 @end

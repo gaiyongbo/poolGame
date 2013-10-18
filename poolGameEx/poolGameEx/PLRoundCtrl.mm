@@ -27,9 +27,19 @@
 
 -(void)HandleCollision:(NSNotification*)notify
 {
-    PLBallSprite *ball = notify.object;
+    self.mHaveCollisionInnerBall = YES;
+}
+
+-(void)CheckBallCount
+{
+    for (PLPlayer *player in CURGAMELAYER.playerArray) {
+        player.mHaveOutBall = NO;
+    }
     
-    self.mHaveCollisionInnerBall = self.mHaveCollisionInnerBall || ball.mPrevStatus == PLBallStatusIn;
+    for (PLBallSprite *ball in CURGAMELAYER.ballArray)
+    {
+        ball.mPlayer.mHaveOutBall = ball.mPlayer.mHaveOutBall || (ball.mStatus == PLBallStatusOut);
+    }
 }
 
 -(void)setMCurPlayerIndex:(PLPlayerType)mCurPlayerIndex
@@ -37,6 +47,8 @@
     if (CURGAMELAYER == nil) {
         return;
     }
+    
+    [self CheckBallCount];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SHOW_CUR_PLAYER_TIP object:[NSNumber numberWithInt:mCurPlayerIndex]];
     
@@ -67,6 +79,8 @@
     if (CURGAMELAYER == nil) {
         return;
     }
+    
+    [self CheckBallCount];
     
     NSInteger ret = -1;
     for (int i = 1; i <= CURGAMELAYER.playerArray.count; i++) {
@@ -130,7 +144,7 @@
 {
     _mGameStatus = mGameStatus;
     if (_mGameStatus == PLGameStatusGameOver) {
-        [CURGAMELAYER ShowAlert];
+        [self CheckGameOver];
     }
     else if (_mGameStatus == PLGameStatusSelectOutBall)
     {
@@ -148,13 +162,7 @@
             {
 //                koCount += 1;//当前球算作KO球
                 [koBall addObject:ball];
-            }
-        }
-        
-        //判断外围是否存在打出去的球或者自己的球
-        if (koBall.count > 0) {
-            PLPlayer *curPlayer = [CURGAMELAYER.playerArray objectAtIndex:self.mCurPlayerIndex];
-            curPlayer.mBallCount += 1;
+            }            
         }
         
         //如果不存在碰撞或者没有打出球，开始下一轮
@@ -176,6 +184,25 @@
             self.mCurPlayerIndex = self.mCurPlayerIndex;
         }
     }
+}
+
+-(void)CheckGameOver
+{
+    BOOL haveInnerBall = NO;
+    NSInteger outBallCount = 0;
+    for (PLBallSprite *ball in CURGAMELAYER.ballArray) {
+        haveInnerBall = haveInnerBall || [CURGAMELAYER IsBallInPlayGround:ball];
+        if (ball.mStatus == PLBallStatusOut) {
+            outBallCount += 1;
+        }
+    }
+    
+    if (!haveInnerBall) {
+        PLPlayer *player = [CURGAMELAYER.playerArray objectAtIndex:self.mCurPlayerIndex];
+        player.mScore += outBallCount * 100;
+    }
+    
+    [CURGAMELAYER ShowAlert];
 }
 
 -(void)BallSelected:(NSNotification*)notify

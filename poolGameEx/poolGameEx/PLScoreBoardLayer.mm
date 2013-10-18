@@ -16,7 +16,7 @@
 {
     self = [super init];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddScoreForCollision:) name:COLLISION_NOTIFY object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddScoreForCollision:) name:CUR_COLLISION_NOTIFY object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddScoreForKnockout:) name:KNOCKOUT_NOTIFY object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ShowCurPlayerTip:) name:SHOW_CUR_PLAYER_TIP object:nil];
         
@@ -63,6 +63,11 @@
     
     curPlayerName.string = [kPlayerNames objectAtIndex:CURGAMELAYER.roundCtrl.mCurPlayerIndex];
     curPlayerBallCount.string = [NSString stringWithFormat:@"剩余：%d", curPlayer.mBallCount];
+//    curPlayerBallCount.string = [NSString stringWithFormat:@"剩余：%d,%d,%d,%d"
+//                                 ,[[CURGAMELAYER.playerArray objectAtIndex:0] mBallCount]
+//                                 ,[[CURGAMELAYER.playerArray objectAtIndex:1] mBallCount]
+//                                 ,[[CURGAMELAYER.playerArray objectAtIndex:2] mBallCount]
+//                                 ,[[CURGAMELAYER.playerArray objectAtIndex:3] mBallCount]];
     curPlayerScore.string = [NSString stringWithFormat:@"得分：%d", curPlayer.mScore];
 }
 

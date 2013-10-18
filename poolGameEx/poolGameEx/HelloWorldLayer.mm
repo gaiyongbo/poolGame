@@ -80,8 +80,6 @@ static HelloWorldLayer *_curGameLayer = nil;
 		[self initPhysics];
 		
 		[self initGame];
-		
-		[self scheduleUpdate];
     }
 	return self;
 }
@@ -89,6 +87,15 @@ static HelloWorldLayer *_curGameLayer = nil;
 -(void)onEnter
 {
     [super onEnter];
+    
+    [self scheduleUpdate];
+}
+
+-(void)onExit
+{
+    [super onExit];
+    
+    [self unscheduleUpdate];
 }
 
 - (void) initGame
@@ -115,7 +122,7 @@ static HelloWorldLayer *_curGameLayer = nil;
     lanchCycle.mDelegate = self;
     lanchCycle.position = kLanchCycleDefaultPt;
     lanchCycle.mLine.visible = YES;
-    [_panZoomLayer addChild:lanchCycle z:0];
+    [_panZoomLayer addChild:lanchCycle z:10];
     
     [self startGame];
 }
@@ -169,7 +176,11 @@ static HelloWorldLayer *_curGameLayer = nil;
 
 -(void) dealloc
 {
-	delete world;
+    for (PLBallSprite *ball in self.ballArray) {
+        world->DestroyBody(ball.b2Body);
+    }
+    
+    delete world;
 	world = NULL;
 	
 	delete m_debugDraw;
@@ -202,6 +213,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 
 -(void)RefreshPressed
 {
+    [self unscheduleUpdate];
     CCTransitionFade *scene = [CCTransitionFade transitionWithDuration:1 scene:[HelloWorldLayer scene]];
     [[CCDirector sharedDirector] replaceScene: scene];
 }
@@ -299,7 +311,7 @@ static HelloWorldLayer *_curGameLayer = nil;
 	b2BodyDef bodyDef;
     bodyDef.angularDamping = 0.9f;
     bodyDef.linearDamping = 1.7;
-	
+	bodyDef.bullet = YES;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
 	b2Body *body = world->CreateBody(&bodyDef);
@@ -432,7 +444,7 @@ static HelloWorldLayer *_curGameLayer = nil;
     lanchCycle.mLanchAble = YES;
 }
 
--(BOOL)IsBallInPlayGround:(PLBallSprite *)ball
+-(BOOL)IsBallInPlayGround:(CCNode *)ball
 {
     CGRect playGroundRect = CGRectInset(playerGround.boundingBox, 3, 3);
     return CGRectIntersectsRect(playGroundRect, ball.boundingBox);

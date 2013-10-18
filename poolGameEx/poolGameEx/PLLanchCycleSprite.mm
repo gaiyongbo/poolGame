@@ -7,6 +7,7 @@
 //
 
 #import "PLLanchCycleSprite.h"
+#import "HelloWorldLayer.h"
 
 #define PL_LANCH_FORCE_DELTA        -0.24
 @implementation PLLanchCycleSprite
@@ -114,6 +115,14 @@
 {
     if (_mLanchAble == mLanchAble) {
         return;
+    }
+    
+    if ([CURGAMELAYER IsBallInPlayGround:self]) {
+        self.opacity = 180;
+    }
+    else
+    {
+        self.opacity = 255;
     }
     
     _mLanchAble = mLanchAble;

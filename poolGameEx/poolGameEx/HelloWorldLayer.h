@@ -51,5 +51,5 @@
 -(b2World*)CurWorld;
 -(void)DestroyBall:(PLBallSprite*)ball;
 -(void)SetLanchCycleWithPType:(PLPlayerType)pType withPt:(CGPoint)pt;
--(BOOL)IsBallInPlayGround:(PLBallSprite*)ball;
+-(BOOL)IsBallInPlayGround:(CCNode*)ball;
 @end

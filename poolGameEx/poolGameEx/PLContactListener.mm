@@ -9,6 +9,7 @@
 #include "PLContactListener.h"
 #include "PLGameDataManager.h"
 #include "PLBallSprite.h"
+#include "HelloWorldLayer.h"
 
 void PLContactListener::BeginContact(b2Contact* contact)
 {
@@ -19,11 +20,15 @@ void PLContactListener::BeginContact(b2Contact* contact)
     
     if (spriteA.mIsCurrent && spriteB)
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:COLLISION_NOTIFY object:spriteB];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CUR_COLLISION_NOTIFY object:spriteB];
     }
     else if (spriteB.mIsCurrent && spriteA)
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:COLLISION_NOTIFY object:spriteA];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CUR_COLLISION_NOTIFY object:spriteA];
+    }
+    
+    if ([CURGAMELAYER IsBallInPlayGround:spriteA] || [CURGAMELAYER IsBallInPlayGround:spriteB]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:COLLISION_NOTIFY object:nil];
     }
 }
 

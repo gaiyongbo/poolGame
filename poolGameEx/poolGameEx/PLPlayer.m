@@ -19,6 +19,11 @@
     return self;
 }
 
+-(NSInteger)mBallCount
+{
+    return self.mHaveOutBall ? _mBallCount + 1 : _mBallCount;
+}
+
 -(void)dealloc
 {
     
